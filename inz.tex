@@ -91,11 +91,8 @@ Wizualizacja Microsoft HoloLens
 Unity jest obecnie najpopularniejszą platformą do tworzenia gier na wiele platform. 
 \subsubsection{Dlaczego Unity}
 Najnowsza wersja posiada natywne wsparcie do rozszerzonej oraz wirtualnej rzeczywistości. Narzędzie te posiada prosty, ergonomiczny interfejs co ułatwia pracę.\\
-Logikę biznesową oraz skrypty pomocnicze można pisać w języku C\#. Jest to duże udogodnienie, gdyż jest ów język posiada wiele wbudowanych klas (np. do obsługi połączęń TCP) oraz niezliczoną ilość bibliotek.
 Bardzo pomocnym dodatkiem do narzędzia jest ,,Assets Store''. Jest to wirtualny sklep z komonentami do tworzenia gry. W projekcie zastosowałem tekstury i obiekty 3d pochodzące z tego źródła.
 \subsubsection{Alternatywne rozwiązania}
-
-
  \begin{tabular}{|c|c|c|}
  \hline
  \ & Unity & Unreal Engine \\ 
@@ -112,6 +109,11 @@ Bardzo pomocnym dodatkiem do narzędzia jest ,,Assets Store''. Jest to wirtualny
   \hline   
 \end{tabular}
 \captionof{table}{Porównanie silników gier}
+\subsubsection(Wybór języka programowania}
+Środowisko Unity wspiera obsługę skryptów (animacje oraz logika biznesowa) w kilku językach programowania: C/#, UnityScript (zmodyfikowana wersja JavaScript)  oraz Boo. Podjąłem decyzję, by w projekcie użyć język C/#, gdyż ów język jest najbardziej stabilny, posiada najbardziej rozbudowaną dokumentację oraz jest to najbardziej popularny język w specjalistycznej literaturze. Dodatkowym udogodnieniem  jest to, iż  język posiada wiele wbudowanych klas (np. do obsługi połączęń TCP) oraz niezliczoną ilość zewnętrznych bibliotek.
+\subsubsection{Unity IDE}
+Środowisko Unity jest multiplatformowe. Aplikacje można używać na dowolnym sytemie operacyjnym. Jednakże edycja skryptów odbywa się za pomocą zewnętrznego narzędzia. W systemie Mac OS jest to MonoDevelop, natomiast w systemie Windows jest to VisualStudio w wersji Community. Opisywana aplikacja początkowo była tworzona na systemie Mac OS, jednakże kołopoty ze środowiskiem MonoDevelop spowodwały decyzje o przeniesieniu środowiska na system Windows. Subiektywnie mogę stwierdzić, że stabilność oraz komfort pracy jest dużo lepszy w systemie Windows.
+Dodatkową alternatywą dla MonoDevelop może okazać się Visual Studio Code. Jest to prosty multiplatformowy edytor posiadający obsługę języka C/#
 
 \subsection{Android}
 
