@@ -14,6 +14,8 @@
 \title{My first document}
 \author{Kamil Warpechowski}
 
+\setlength\parindent{24pt}
+
 
 \fancypagestyle{firststyle}
 {
@@ -97,7 +99,7 @@ Bardzo pomocnym dodatkiem do narzędzia jest ,,Assets Store''. Jest to wirtualny
  \hline
  \ & Unity & Unreal Engine \\ 
   \hline
- Wsparcie języków programowania & C Sharp, JavaScript, Boo & c++ \\  
+ Wsparcie języków programowania & C\#, JavaScript, Boo & c++ \\  
   \hline
  Obsługa wielu ekranów & Tak & Nie \\
  \hline  
@@ -114,21 +116,39 @@ Bardzo pomocnym dodatkiem do narzędzia jest ,,Assets Store''. Jest to wirtualny
 Środowisko Unity wspiera obsługę skryptów (animacje oraz logika biznesowa) w kilku językach programowania: C\#, UnityScript (zmodyfikowana wersja JavaScript)  oraz w przeszłości Boo. Podjąłem decyzję, by w projekcie użyć język C\#, gdyż ów język jest najbardziej stabilny, posiada najbardziej rozbudowaną dokumentację oraz jest to najbardziej popularny język w specjalistycznej literaturze. Dodatkowym udogodnieniem  jest to, iż  język posiada wiele wbudowanych klas (np. do obsługi połączęń TCP) oraz niezliczoną ilość zewnętrznych bibliotek.
 \subsubsection{Unity IDE}
 Środowisko Unity jest multiplatformowe. Aplikacje można używać na dowolnym sytemie operacyjnym. Jednakże edycja skryptów odbywa się za pomocą zewnętrznego narzędzia. W systemie Mac OS jest to MonoDevelop, natomiast w systemie Windows jest to VisualStudio w wersji Community. Opisywana aplikacja początkowo była tworzona na systemie Mac OS, jednakże kołopoty ze środowiskiem MonoDevelop spowodwały decyzje o przeniesieniu środowiska na system Windows. Subiektywnie mogę stwierdzić, że stabilność oraz komfort pracy jest dużo lepszy w systemie Windows.
-Dodatkową alternatywą dla MonoDevelop może okazać się Visual Studio Code. Jest to prosty multiplatformowy edytor posiadający obsługę języka C\#.
+Dodatkową alternatywą dla MonoDevelop może okazać się Visual Studio Code. Jest to prosty multiplatformowy edytor posiadający obsługę języka C\# .
 
 \subsubsection{Licencja i koszty}
 Unity jest zamkniętym, licencjonowanym oprogramowaniem. Darmowa wersja (Personal Editon) pozwala na nielimitowane użycie, jednakże jest to okrojona edycja. Szersze informacje o ograniczeniach wersji Personal zawarte są w kolejnych rozdziałach. Licencja pozwala na komercyjne użycie przy limicie zarobków na poziomie stu tysięcy dolarów.
-Komercyjna wersja (Professional Edition) jest płatna w modelu subskrybcyjnym (75 dolarów za miesiąc).
+Komercyjna wersja (Professional Edition) jest płatna w modelu subskrybcyjnym (75 dolarów za miesiąc)\footnote{https://store.unity3d.com/subscribe}.
 Na potrzeby opisywanego projektu zasotosowano Unity w wersji Personal Edition.
 
 \subsection{Android}
 
 \subsection{Połączenie sieciowe}
+Największym wyzwaniem było stworzenie dwukierunkowego protokołu komunikacyjnego pomiędzy serwerem (aplikacja napisana w środowisku Unity) oraz dowolnym kontrolerem lub w przyszłości innym urządzeniem wysłającym dane do aplikacji.
 
-\subsubsection{Alternatywne rozwiązania}
+\subsubsection{UNET}
+Unity wspiera natywną obsługę multiplayer - UNET, jednakże jest to zamknięty protokół. Komunikacja możliwa jest tylko pomiędzy aplikacjami stworzonymi w tym środowisku.
 
+\subsubsection{SOAP}
 
+\subsubsection{REST}
+
+\subsubsection{RTP}
+
+\subsubsection{TCP}
+
+\newpage
 \section{Aplikacja główna}
+
+\subsection{Świat gry}
+\subsection{Aktorzy}
+\subsection{Kamery}
+Platforma Unity wspiera do 8 wirtualnych kamer \footnote{http://docs.unity3d.com/Manual/MultiDisplay.html}.
+Każda z tych kamer może być prezentowana na oddzielnym fizycznym ekranie.
+
+
 \subsection{Logika biznesowa}
 \subsection{Serwer komunikacyjny}
 \section{Aplikacja mobilna - kontroler}
