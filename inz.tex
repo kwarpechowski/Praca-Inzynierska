@@ -2,15 +2,15 @@
 
 \usepackage{graphicx}
 \usepackage{url}
-
+\usepackage{color}
 \usepackage{fancyhdr}
 \usepackage[T1]{fontenc}
 \usepackage[polish]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
 \usepackage{caption}
-\selectlanguage{polish}
 \usepackage{listings}
+\selectlanguage{polish}
 \title{My first document}
 \author{Kamil Warpechowski}
 
@@ -97,7 +97,7 @@ Przykłady zastosowanie zestawu aplikacji:
 \end{itemize}
 
 \section{Rozszerzona rzeczywistość}
-
+Natural Machines, Meta2
 \begin{center}
 \includegraphics[width=0.8\textwidth]{images/hololens.png}
 \captionof{figure}{
@@ -154,13 +154,12 @@ Największym wyzwaniem było stworzenie dwukierunkowego protokołu komunikacyjne
 \subsubsection{UNET}
 Unity wspiera natywną obsługę multiplayer - UNET, jednakże jest to zamknięty protokół. Komunikacja możliwa jest tylko pomiędzy aplikacjami stworzonymi w tym środowisku.
 
-\subsubsection{SOAP}
-
-\subsubsection{REST}
-
-\subsubsection{RTP}
-
+\subsubsection{HTTP (SOAP, REST)}
+Komunikacja za pomocą HTTP (protokoły komunikacyjne takie jak np. SOAP, REST) są bardzo często spotykane. Jest to standard aplikacji internetowych. HTTP nadaje się do przesyłu dużych wolumenów danych, jednak niezbyt dobrze sprawdza się przy małych, lecz częstych połązeniach pomiędzy klientem, a serwerem. Duży narzut czasowy może spowodować transormacja danych do oraz z formatu JSON lub XML. Jednakże dużą zaletą wspomnianych protokołów jest prostota implementacji w większości języków programowania, gdyż są już gotowe komponenty.
 \subsubsection{TCP}
+{\color{red}Opisać, że TCP jest ogólnie lepsze - socket, ale to jest nadal połączeniowy, więc lepiej by było udp}
+\subsubsection{UDP}
+{\color{red}opisać, ze to najlepsze rozwiazanie - bezpolazeniowe}
 
 \newpage
 \section{Aplikacja główna}
@@ -219,9 +218,7 @@ Serwer został uruchomiony na komputerze przenośnym(laptop) posiadającym kart�
  
 \listoftables
 \begin{thebibliography}{99}
-\bibitem{pa} H.~Partl:
-\emph{German \TeX},
-TUGboat Vol.~9,, No.~1 ('88)
+\bibitem{pa} Building Microservices,  Sam Newman , Wydanie 4, 2016
 \end{thebibliography}
 
 \end{document}
