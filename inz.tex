@@ -31,19 +31,48 @@
 \definecolor{redstrings}{rgb}{0.9,0,0}
 
 
-\lstset{language=[Sharp]C,
+\lstdefinelanguage{CSharp}
+{
+ morecomment = [l]{//}, 
+ morecomment = [l]{///},
+ morecomment = [s]{/*}{*/},
+ morestring=[b]", 
+ sensitive = true,
+ morekeywords = {abstract,  event,  new,  struct,
+   as,  explicit,  null,  switch,
+   base,  extern,  object,  this,
+   bool,  false,  operator,  throw,
+   break,  finally,  out,  true,
+   byte,  fixed,  override,  try,
+   case,  float,  params,  typeof,
+   catch,  for,  private,  uint,
+   char,  foreach,  protected,  ulong,
+   checked,  goto,  public,  unchecked,
+   class,  if,  readonly,  unsafe,
+   const,  implicit,  ref,  ushort,
+   continue,  in,  return,  using,
+   decimal,  int,  sbyte,  virtual,
+   default,  interface,  sealed,  volatile,
+   delegate,  internal,  short,  void,
+   do,  is,  sizeof,  while,
+   double,  lock,  stackalloc,   
+   else,  long,  static,   
+   enum,  namespace,  string}
+}
+
+
+\lstset{,
   showspaces=false,
   showtabs=false,
   breaklines=true,
   showstringspaces=false,
   breakatwhitespace=true,
   escapeinside={(*@}{@*)},
-  commentstyle=\color{greencomments},
-  keywordstyle=\color{bluekeywords},
-  stringstyle=\color{redstrings},
-  basicstyle=\ttfamily
+  frame=lrtb,
+  aboveskip=2em
 }
 
+\setlength{\parindent}{30mm}
 \begin{document}
 
 
@@ -99,7 +128,7 @@ Przykłady zastosowanie zestawu aplikacji:
 \section{Rozszerzona rzeczywistość}
 Natural Machines, Meta2
 \begin{center}
-\includegraphics[width=0.8\textwidth]{images/hololens.png}
+\includegraphics[width=0.9\textwidth]{images/hololens.png}
 \captionof{figure}{
 Wizualizacja Microsoft HoloLens
 }
@@ -112,7 +141,7 @@ Wizualizacja Microsoft HoloLens
 Unity jest obecnie najpopularniejszą platformą do tworzenia gier na wiele platform. 
 \subsubsection{Dlaczego Unity}
 Najnowsza wersja posiada natywne wsparcie do rozszerzonej oraz wirtualnej rzeczywistości. Narzędzie te posiada prosty, ergonomiczny interfejs co ułatwia pracę.\\
-Bardzo pomocnym dodatkiem do narzędzia jest ,,Assets Store''. Jest to wirtualny sklep z komonentami do tworzenia gry. W projekcie zastosowałem tekstury i obiekty 3d pochodzące z tego źródła.
+Bardzo pomocnym dodatkiem do narzędzia jest ,,Assets Store''. Jest to wirtualny sklep z komonentami do tworzenia gry. W projekcie zastosowałem tekstury i obiekty 3D pochodzące z tego źródła.
 \subsubsection{Alternatywne rozwiązania}
  \begin{tabular}{|c|c|c|}
  \hline
@@ -184,7 +213,7 @@ Komunikacja za pomocą HTTP (protokoły komunikacyjne takie jak np. SOAP, REST) 
 
 \end{center}
 
-\begin{lstlisting}
+\begin{lstlisting}[language=CSharp]
 public void SendInfo() {
 	Network.SendMessage("hasax_"+this.hasAx);
 	Network.SendMessage("hassh_"+this.hasSh);
@@ -192,6 +221,9 @@ public void SendInfo() {
 	Network.SendMessage("isMove_"+this.isMove);
 }
 \end{lstlisting}
+\captionof{lstlisting}{
+	Do Poprawy
+}
 
 
 \subsection{Kamery}
@@ -211,6 +243,65 @@ Makieta - układ przycisków
 }
 \end{center}
 
+Głównym założeniem było stworzenie uniwersalnego kontrolera przygotowanego pod dowolny rodzaj gry, bądź innej wizualizacji stworzonej w środowisku Unity. Podczas uruchomienia kontrolera serwer wysyła statusy przycisków oraz pól tekstowych.
+
+\subsubsection{Przyciski}
+
+Każdy przycisk może zostać skonfigurowany poprez ustawienie tekstu. Dodatkowo można zablokować przycisk podczas gdy nie jest on potrzebny w danym czasie.
+
+Aby ułatwić pracę nad aplikacją stworzono pole wyliczalne (ENUM) zawierającą wszystkie przyciski.
+
+\begin{lstlisting}[language=Java]
+public enum ButtonEnum {
+    BTN1, BTN2, BTN3, BTN4, BTN5, BTN6, BTN7, BTN8, BTN9, BTN10, BTN11
+}
+\end{lstlisting}
+\captionof{lstlisting}{
+	Enum z przyciskami
+}
+
+
+Jednakże aby powiązać elementy ,,Button'' z warstwy widoku (defincja XML) na kod przycisku  należy stworzyć listę elementów. Będzie ona służyła do wyszukiwania przycisków oraz zmiany ich właściwości. Dodatkowo do każdego przycisku należy dodać obsługę zdarzeń. Po kliknięciu wysyłany będzie odpowiedni komunikat.
+
+\begin{lstlisting}[language=Java]
+    protected HashMap<ButtonEnum, Button> buttonsMap = new HashMap<ButtonEnum, Button>();
+
+    protected void mapButton(int btnId, final ButtonEnum btnName) {
+        final Button button = (Button) findViewById(btnId);
+        buttonsMap.put(btnName, button);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sendToServer("button_" + btnName);
+            }
+        });
+    }
+\end{lstlisting}
+\captionof{lstlisting}{
+	Metoda obsługująca przycisk
+}
+
+
+\begin{lstlisting}[language=Java]
+ @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        this.mapButton(R.id.button1, ButtonEnum.BTN1);
+        this.mapButton(R.id.button2, ButtonEnum.BTN2);
+
+    }
+\end{lstlisting}
+\captionof{lstlisting}{
+	Przykład mapowania przycisku
+}
+
+\subsubsection{Informacje tekstowe}
+Pola tekstowe mogą mieć ustawioną dowolną treść w dowolnym czasie.
+
+\subsection{Komunikacja sieciowa}
+
+
 
 \section{Środowisko uruchomieniowe}
 Powyżej opisana aplikacja została uruchomiona testowo w labolatorium na Polsko-Japońskiej Akademii Technik Komputerowych.
@@ -229,6 +320,10 @@ Serwer został uruchomiony na komputerze przenośnym(laptop) posiadającym kart�
 \listoffigures
  
 \listoftables
+
+\lstlistoflistings
+
+
 \begin{thebibliography}{99}
 \bibitem{pa} Building Microservices,  Sam Newman , Wydanie 4, 2016
 \end{thebibliography}
