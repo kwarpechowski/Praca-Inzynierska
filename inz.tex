@@ -123,7 +123,7 @@ W kinach odbywają są coraz częściej projekcje filmów 3D. Natomiast w ostatn
 Coraz bardziej popularne staje się pojęcie rozszerzonej rzeczywistości (ang. augmented reality)
 
 \paragraph{}
-Natural Machines, Meta2
+Natural Machines, Meta2, Wonderbook
 \begin{center}
 \includegraphics[width=0.9\textwidth]{images/hololens.png}
 \captionof{figure}{
@@ -342,7 +342,7 @@ Serwer został uruchomiony na komputerze przenośnym(laptop) posiadającym kart�
 \newpage
 \section{Implementacja na platformie Google Cardboard}
 \paragraph{}
-Innym przykładem implementacji projektu w rozszerzonej rzeczywistości może być platforma Google Cardboard. Są to niskobudżetowe okulary stworzone przez firmę Google do wyświetlania wirtualnej rzeczywistości. Okulary służące do wyświetlania obrazu stereoskopowego zbudowane są z kartonu. Posiadają miejsce do umieszczenia dowolnego telefonu komórkowego typu smartphone. Do projektu wybrano wersję, która pozwala na umieszczenie telefonu w sposób taki, iż tylna kamera nie jest załonięta przez obudowę okularów. Dzięki temu można użyć platformę Cardboard przeznaczoną pierwotnie tylko do wirtualnej rzeczywistości do stworzenia aplikacji wykorzystującą augmented reality.
+Innym przykładem implementacji projektu w rozszerzonej rzeczywistości może być platforma Google Cardboard \footnote{https://vr.google.com/cardboard/index.html}. Są to niskobudżetowe okulary stworzone przez firmę Google do wyświetlania wirtualnej rzeczywistości. Kartonowe okulary powstawły w celu wyświetlania obrazu stereoskopowego. Posiadają one miejsce do umieszczenia dowolnego telefonu komórkowego typu smartphone. Do projektu wybrano wersję, która pozwala na umieszczenie telefonu w sposób taki, iż tylna kamera nie jest załonięta przez obudowę. Dzięki temu można użyć platformę Cardboard przeznaczoną pierwotnie tylko do wirtualnej rzeczywistości do stworzenia aplikacji wykorzystującą augmented reality.
 
 \begin{center}
 \includegraphics[width=0.9\textwidth]{images/cardboard.jpg}
@@ -355,8 +355,15 @@ Google Cardboard w wersji do samodzielnego złożenia
 \paragraph{}
 Dzięki użyciu kamery użytkownik widzi obraz znajdujący się przed nim. Aby obraz był stereoskopwy należało stworzyć aplikację, która wyświetlić strumień danych z kamery dzieląc go na dwa obrazy (kolejno dla lewego oraz prawego oka).
 
+\begin{center}
 {\color{red}tutaj dodać zdjećie podstawowego zrzutu z kamery}
+\end{center}
 
+\subsetion{ArToolkit}
+\paragraph{}
+W celu wyświetlenia wirtualnych obiektów na obrazie z kamery rozbudowano aplikację z rodziału pierwszego {\color{red}uzupełić rozdział}. Do platformy Unity doinstalowano zewnętrzny komponent ARToolKit  \footnote{http://artoolkit.org/}. Jest to biblioteka wydana przez University of Washington \footnote{https://www.hitl.washington.edu/artoolkit/}, lecz obecnie upostępniona jest na licencji GNU. Kod źródłowy jest otwarty i rozwijany przez środowisko Open Source \footnote{https://github.com/artoolkit}.
+\paragraph{}
+Tutaj coś po co to było użyte
 
 \section{Dalszy rozwój}
 
