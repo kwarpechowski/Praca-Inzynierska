@@ -416,6 +416,12 @@ Podstawowa impementacja
 \end{center}
 \subsection{Napotkane problemy i ograniczenia}
 \paragraph{}
+\begin{enumerate}
+	\item Proces renderowania musi odbywać się na telefonie komórkowym, gdyż obraz kamery jest ciągle analizowany. Przy dużych scenach stworzonych w Unity moc obliczeniowa urządzenia jest niewystarczająca.
+	\item Analizowanie pozycji markera przy nieustannie włączonej kamerze powoduje dużą drenację baterii urządzenia. Czas pracy na baterii jest mocno ograniczony
+	\item Unity w wersji Personal (darmowej) skompilowanej pod platrformę mobilną (np. Android) nie udostępnia obsługi sieci (np. za pomocą połączenia TCP). Nie pozwala to na połączenie z zenętrznym kontrolerem.
+	\item Sterowanie za pomocą kontrolera bez fizycznych przycisków z założonymi okularami Google Cardboard jest bardzo uciążliwe. W przyszłości należałoby rozważyć połączenie telefou z zewnętrznym kontrolerem typu PAD\footnote{https://pl.wikipedia.org/wiki/Gamepad}.
+\end{enumerate}
 {\color{red}Opisać}
 
 \newpage
