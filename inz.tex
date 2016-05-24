@@ -217,8 +217,9 @@ Na potrzeby implementacji przykładowego urządzenia sterującego wybrano platfo
 opisac
 
 \subsubsection{Zależności}
-\paragraph{}
-tutaj zaleznosci - lista
+\begin{enumerate}
+	\item Butter Knife
+\end{enumerate}
 
 \subsection{Komunikacja sieciowa}
 \paragraph{}
@@ -257,8 +258,6 @@ Komunikacja za pomocą HTTP (protokoły komunikacyjne takie jak np. SOAP, REST) 
   \hline   
 \end{tabular}
 \captionof{table}{Właściwości aktora}
-
-
 \end{center}
 
 \begin{lstlisting}[language=CSharp]
@@ -280,6 +279,10 @@ Każda z tych kamer może być prezentowana na oddzielnym fizycznym ekranie.
 
 \subsection{Prefabrykaty}
 \paragraph{}
+W Unity możliwe jest używanie prefabrykatów (Prefabs \footnote{http://docs.unity3d.com/Manual/Prefabs.html}). Są obiekty lub grupy obiektów, które służą do wielokrotnego wykorzystywania. W Projekcie założono, że wszystkie reużwalne komponety (dziedziczone pomiędzy scenami) będą prefabrykatami.
+
+Dodatkowo aktorzy gry (generowane dynamicznie) są również prefabrykatami. Instancje aktora są tworzone podczas działania aplikacji.
+
 {\color{red}Opisać prefabrykaty}
 
 \subsection{Logika biznesowa}
