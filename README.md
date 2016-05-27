@@ -9,5 +9,5 @@ Draft
 - [ ] Mapping jako przykład aplikacji
 - [ ] Rysunek - hologram
 - [ ] Rysunek - mapping
-- [ ] Grafika - kontroler przykład 1
-- [ ] Grafika - kontroler przykład 2
+- [x] Grafika - kontroler przykład 1
+- [x] Grafika - kontroler przykład 2
