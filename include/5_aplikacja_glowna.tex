@@ -1,3 +1,4 @@
+\newpage
 \section{Aplikacja główna}
 
 
@@ -15,6 +16,8 @@ Model w środowisku Unity
 
 
 \subsection{Aktorzy}
+\paragraph{}
+
 
 \begin{center}
 
@@ -51,7 +54,119 @@ W Unity możliwe jest używanie prefabrykatów (Prefabs \footnote{http://docs.un
 
 Dodatkowo aktorzy gry (generowane dynamicznie) są również prefabrykatami. Instancje aktora są tworzone podczas działania aplikacji.
 
-{\color{red}Opisać prefabrykaty}
+\subsubsection{Kamery}
+\paragraph{}
+Ważnym elementem gry są wirtualne kamery. To z nich renderowane jest ujęcie, czyli obraz gry. W projekcie zastosowano dwie kamery. Podczas konfiguracji uruchomieniowej należy ustawić by każda z kamer była wyświetlana na oddzielnym źródle obrazu (monitor, projektor). Dzięki temu projekt można uruchomić na dwóch prostopadłych ścianach.
+\paragraph{}
+Jako tło sceny wybrano jednolity kolor czarny, ponieważ ten kolor nie jest prezentowany podczas projekcji. Światłó z projektora jest w tym miejscu znikome, wręcz niewidoczne. Stosując taki prosty zabieg można łączyć elementy rzeczywiste (np. rura czy inne elementy stałe znajdujące się w labolatorium) z wirtualną rzeczywistością.
+
+\begin{center}
+\includegraphics[width=0.9\textwidth]{images/kamera1.png}
+\includegraphics[width=0.9\textwidth]{images/kamera2.png}
+\captionof{figure}{
+Ujęcie wirtualnych kamer
+}
+\small {źródło: własne }
+\end{center}
+
+\paragraph{}
+Środowisko Unity domyślnie nie ma włączonej opcji wspierania wielu kamer jednocześnie. Do opisywanego prefakbrykatu należy dodać abstrakcyjny GameObject z poniższym prostym skryptem, który przy uruchomieniu skopilowanej gry sprawdza dostępność sprzętową ekranów.
+
+\begin{lstlisting}[language=CSharp]
+using UnityEngine;
+using System.Collections;
+
+public class DisplayScript : MonoBehaviour
+{
+	void Start()
+	{
+		Debug.Log("displays connected: " + Display.displays.Length);
+		if (Display.displays.Length > 1)
+			Display.displays[1].Activate();
+		if (Display.displays.Length > 2)
+			Display.displays[2].Activate();
+	}
+}
+\end{lstlisting}
+\captionof{lstlisting}{
+	Prosta aktywacja ekranów
+}
+
+\paragraph{}
+Podczas testów uruchomieniowych przy dwóch kamerach występował problem z wydajnością karty graficznej. Zwłaszcza gdy do komputera podłączano dwa zewnętrzne ekrany po złączach cyfrowych (np. HDMI, DisplayPort, DVI). Finalnie problem rozwiązano wydajniejszym komputerem, jednakże pośredniom rozwiązaniem było użycie portu VGA, który jest mniej obciążający dla karty graficznej.
+
+\subsubsection{Światło}
+\paragraph{}
+Kolejny prefabrykat stworzono by zachować spójność w oświetleniu trójwymiarowej sceny. Służy on do zgrupowania wszystkich źródeł wirtualnego światała. Jest to element bez zwwartej logiki biznesowej. Stworzono go w celu zachowania porządku w projekcie.
+
+\subsubsection{Network}
+\paragraph{}
+Jest to prefabrykat abstrakcyjny (nie posiada graficznej reprezentacji w trójwymiarowym modelu). SŁuży on jako trigger uruchomienowy do skryptu obsługującego połączenia sieciowe.
+
+{\color{red}Opisać logikę, network manager itd}.
+
+\subsubsection{Replikator}
+\paragraph{}
+{\color{red}Opisać replikator}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{images/replikator.png}
+\captionof{figure}{
+Konfiguracja replikatora
+}
+\end{center}
+
+\begin{lstlisting}[language=CSharp]
+...
+public void Run () {
+	StartCoroutine(Runner());
+
+	NetworkManager.StartListening("button_left", Left);
+	NetworkManager.StartListening("button_right", Right);
+	NetworkManager.StartListening("button_kilof", Kilof);
+	NetworkManager.StartListening("button_lopata", Lopata);
+	NetworkManager.StartListening("button_jump", Jump);
+	NetworkManager.StartListening("button_spadochron", Drabina);
+	NetworkManager.StartListening("button_rotate", Rotate);
+	NetworkManager.StartListening("button_startstop", Startstop);
+	NetworkManager.StartListening("button_reset", Reset);
+}
+
+IEnumerator Runner() {
+	while (lemmingCount < LemmingSize) {
+		Create ();
+		lemmingCount += 1;
+		yield return new WaitForSeconds (secoundLimit);
+	}
+}
+...
+\end{lstlisting}
+\captionof{lstlisting}{
+	Uruchomienie replikatora
+}
+
+\begin{lstlisting}[language=CSharp]
+...
+void Left () {
+	Lemming2.GetPrev ();
+}
+
+void Right () {
+	Lemming2.GetNext ();
+}
+
+void Kilof () {
+	if (Lemming2.activeEl) {
+		Lemming2.activeEl.ToggleKilof ();
+	}
+}
+...
+\end{lstlisting}
+\captionof{lstlisting}{
+	Implementacja akcji
+}
+
+
+{\color{red}Opisać pozostałe prefabrykaty}
 
 \subsection{Logika biznesowa}
 \subsection{Serwer komunikacyjny}
