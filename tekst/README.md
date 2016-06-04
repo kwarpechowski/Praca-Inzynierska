@@ -1,2 +1,2 @@
 # Praca Inżynierska
-Implementacja kontrolera - Android
+Forma tekstowa
