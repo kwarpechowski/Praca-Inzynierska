@@ -19,7 +19,25 @@ Celem gry jest doprowadzenie grupy aktorów (tytułowych Lemmingów) do wyjścia
 
 \subsection{Implementacja w technologii hologramu}
 \paragraph{}
-{\color{red}Tutaj opisać próby i przemyślenia na temat hologramu na drzwiach.}
+Pierwotnym założeniem było stworzenie projektu za pomocą hologramu. Planowano wykorzystanie złudzenia optycznego stworzonego za pomocą światła na półprzezroczystej płaszczyźnie znajdującej się przed oczami odbiorcy. Analogiczną koncepcję prezentowało w przeszłości urządzenie Google Glass, a obecnie np. Microsoft Hololens lub Meta2.
+
+Jednakże zamiast urządzenia nakładanego na głowę planowano użyć przezroczystą szybę znajdującą się na drzwiach wejściowych do labolatorium. Dzięki takiem rozwiązaniu odbiór instalacji odbywałby się bez dodatkowych urządzeń, co za tym idzie interakcja byłaby bardziej naturalna.
+Na szybie umieszczona zostałaby warstwa półprzezroczystej folii na której prezentowany byłby obraz za pomocą projektora multimedialnego ustawionego pod kątem około 30 stopni w górę w kierunku szyby. Projektor znajdowałby się na statywie w środu sali - technologia projekcja tylna.
+
+Podczas eksperymentów próbowano wiele różnych folii oraz kilka ustawień projektorów. 
+
+Zaobserowano:
+\begin{itemize}
+	\item Umiejscowienie projektora pod kątem względem szyby powoduje bardziej naturalny obraz. Nie widać wtedy głównego strumienia światła z projektora (strumień światła nie jest prowadzony w linii prostej do odbiorcy), co za tym idzie  nie ma odczucia oślepienia.
+    \item Użycie specjalnej folii do projekcji tylnej powoduje najlepszy odbiór. Inne folie przepuszczały zbyt małą ilość światła, bądź obraz z projektora był mało ostry.
+    \item Użycie projektora w technologii LED okazało się lepsze, niż zastosowanie standardowego projektora multimedialnego. Mała odległość pomiędzy drzwiam, a urządzeniem pozwalała na użycie projektora z małą ilościa lumenów.
+ 
+    \item {\color{red}dalej}
+\end{itemize}
+
+\paragraph{}
+Jednakże zrezygnowano z powyższego pomysłu, ponieważ napotkano problem nakładania obrazu z  elementami znajdującymi się w sali. Aby punkty wirtualne z ich rzeczywistami odpowiednikami się nakładały i tworzyły spójny obraz (augumented reality) należałoby spoglądać przez szybę pod jednym wskazanym kątem. Co za tym idzie prawidłowy odbiór instalacji byłby zaburzony przez takie czynniki jak np. wzrost odbiorcy, kierunek wzroku czy też odległość od szyby. Urządzenia takie jak Microsoft Hololens niwelują ten problem poprzez stałe umiejscowienie półprzezroczystego ekranu w małej odległości od oka. 
+
 \begin{center}
 \includegraphics[width=0.9\textwidth]{images/hologramv1.png}
 \captionof{figure}{
