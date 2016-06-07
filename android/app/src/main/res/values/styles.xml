@@ -8,4 +8,19 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="MyButton" parent="@android:style/Widget.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:radius">0dp</item>
+        <item name="android:typeface">monospace</item>
+    </style>
+
+
+    <style name="MyButtonDark" parent="MyButton">
+        <item name="android:textColor">#f2f2f2</item>
+        <item name="android:background">#000</item>
+    </style>
+
 </resources>

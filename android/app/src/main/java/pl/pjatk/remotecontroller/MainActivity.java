@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         startConnection(getBaseContext());
 
         this.bindButtons();
+        
     }
 
     private void bindButtons() {

@@ -77,3 +77,46 @@ Pola tekstowe mogą mieć ustawioną dowolną treść w dowolnym czasie.
 \subsection{Komunikacja sieciowa}
 \paragraph{}
 {\color{red}tutaj opisać implementacje warstwy komunikacyjnej}
+
+
+\subsection{Użycie styli}
+\paragraph{}
+Aby utrzymać porządek w kodzie kontrolera postaniowiono zastosować style do powtarzalnych elementów. W pliku styles.xml można zdefiniować własny styl - zbiór właściwości wizualnych mających posiadać np. wszystkie przyciski.
+
+
+\begin{lstlisting}[language=XML]
+ <style name="MyButton" parent="@android:style/Widget.Button">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textColor">#fff</item>
+    <item name="android:background">@color/colorPrimary</item>
+    <item name="android:radius">0dp</item>
+    <item name="android:typeface">monospace</item>
+</style>
+
+<style name="MyButtonDark" parent="MyButton">
+    <item name="android:textColor">#f2f2f2</item>
+    <item name="android:background">#000</item>
+</style>
+\end{lstlisting}
+\captionof{lstlisting}{
+   Przykład styli dla przycisku
+}
+
+\begin{lstlisting}[language=XML]
+<Button
+    style="@style/MyButton"
+    android:text="Button 2"
+    android:id="@+id/button2"
+    android:layout_gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
+\end{lstlisting}
+\captionof{lstlisting}{
+   Użycie stylu wraz z nadpisaniem właściwości
+}
+
+\paragraph{}
+Jednakże z poziomu kodu źródłowego nie ma możliwości zmiany styli w trakcie uruchomienia aplikacji.
+\paragraph{}
+{\color{red}opsiać jak to sie robi inaczej}
