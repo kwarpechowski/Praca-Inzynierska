@@ -3,8 +3,10 @@ package pl.pjatk.remotecontroller;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +26,21 @@ public class CustomButton extends Button {
         }
     }
 
+    private  String getName() {
+        return attributes.getString(R.styleable.CustomButton_name);
+    }
+
     private void setUp() {
         setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
         buttons.add(this);
-        setText(attributes.getString(R.styleable.CustomButton_name));
+        setText(getName());
+
+        setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Hello " + getName(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
@@ -56,7 +69,5 @@ public class CustomButton extends Button {
         super(context, attrs, defStyleAttr, defStyleRes);
         setUp();
     }
-
-
 
 }
