@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="pl.pjatk.remotecontroller.MainActivity">
 
 
@@ -30,42 +31,32 @@
                 android:rowCount="4">
 
 
-                <Button
-                    style="@style/MyButton"
-                    android:text="Button 3"
-                    android:id="@+id/button3"
+                <pl.pjatk.remotecontroller.CustomButton
+                    app:name="button3"
                     android:layout_row="0"
                     android:layout_column="0" />
 
-                <Button
-                    style="@style/MyButton"
-                    android:text="Button 4"
-                    android:id="@+id/button4"
+                <pl.pjatk.remotecontroller.CustomButton
+                    app:name="button4"
                     android:layout_row="0"
                     android:layout_column="1" />
 
-                <Button
-                    style="@style/MyButton"
-                    android:text="Button 5"
-                    android:id="@+id/button5"
+                <pl.pjatk.remotecontroller.CustomButton
+                    app:name="button5"
                     android:layout_row="1"
                     android:layout_column="0" />
 
-                <Button
-                    style="@style/MyButton"
-                    android:text="Button 6"
-                    android:id="@+id/button6"
+                <pl.pjatk.remotecontroller.CustomButton
+                    app:name="button6"
                     android:layout_row="1"
                     android:layout_column="1" />
             </GridLayout>
 
 
-            <Button
-                style="@style/MyButton"
-                android:text="Button 1"
-                android:id="@+id/button1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+            <pl.pjatk.remotecontroller.CustomButton
+                app:name="button1"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content" />
 
         </LinearLayout>
 
@@ -76,10 +67,11 @@
             android:layout_weight="1">
 
             <Button
-                style="@style/MyButton"
                 android:text="New Button ff"
                 android:id="@+id/button1ff"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>
 
         </LinearLayout>
 
@@ -98,39 +90,41 @@
                 android:rowCount="4">
 
 
-                <Button
-                    style="@style/MyButton"
-                    android:text="Button 7"
-                    android:id="@+id/button7"
+                <pl.pjatk.remotecontroller.CustomButton
+                    app:name="button7"
                     android:layout_row="0"
-                    android:layout_column="0" />
+                    android:layout_column="0"
+                    />
 
-                <Button
-                    style="@style/MyButton"
-                    android:text="Button 8"
-                    android:id="@+id/button8"
+                <pl.pjatk.remotecontroller.CustomButton
+                    app:name="button8"
                     android:layout_row="0"
-                    android:layout_column="1" />
+                    android:layout_column="1"
+                    />
 
-                <Button
-                    style="@style/MyButton"
-                    android:text="Button 9"
-                    android:id="@+id/button9"
+                <pl.pjatk.remotecontroller.CustomButton
+                    app:name="button9"
                     android:layout_row="1"
-                    android:layout_column="0" />
+                    android:layout_column="0"
+                    />
 
-                <Button
-                    style="@style/MyButton"
-                    android:text="Button 10"
-                    android:id="@+id/button10"
+                <pl.pjatk.remotecontroller.CustomButton
+                    app:name="button10"
                     android:layout_row="1"
-                    android:layout_column="1" />
+                    android:layout_column="1"
+                    />
             </GridLayout>
 
 
 
+            <pl.pjatk.remotecontroller.CustomButton
+                app:name="button2"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                />
+
             <Button
-                style="@style/MyButton"
                 android:text="Button 2"
                 android:id="@+id/button2"
                 android:layout_gravity="center_horizontal"
