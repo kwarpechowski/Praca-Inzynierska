@@ -12,3 +12,13 @@
 *.toc
 
 *.lol
+
+tekst/inz.bbl
+
+*.fls
+
+*.fdb_latexmk
+
+*.dvi
+
+*.blg
