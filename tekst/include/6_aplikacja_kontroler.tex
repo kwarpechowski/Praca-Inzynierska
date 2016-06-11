@@ -84,47 +84,60 @@ private void setUp() {
 
 \subsection{Użycie styli}
 \paragraph{}
-Dodatkowym wymaganiem było umożliwienie szybkiej zmiany wyglądu przycisków.
-\paragraph{}
-Aby utrzymać porządek w kodzie kontrolera postaniowiono zastosować style do powtarzalnych elementów. W pliku styles.xml można zdefiniować własny styl - zbiór właściwości wizualnych mających posiadać np. wszystkie przyciski.
+Dodatkowym wymaganiem było umożliwienie szybkiej zmiany wyglądu przycisków w trakcie działania aplikacji. Użycie natywnych styli niestety nie jest możliwe bez ponownego renderowania widoku. Aby zaoszczędzić czas i moc obliczeniową postanowiono, iż zostatnie użyta technologia zmiany tła za pomocą metody backgroundResource. Różne wyglądy przycisku mogą być definiowane jako selectory (zewnętrzne pliki xml w katalogu drawable). Ważne, by plik był odpowiednio nazwany, gdyż po nazwie następuje wyszukiwanie schematu podczas zmiany wyglądu.
 
-
-\begin{lstlisting}[language=XML]
- <style name="MyButton" parent="@android:style/Widget.Button">
-    <item name="android:layout_width">wrap_content</item>
-    <item name="android:layout_height">wrap_content</item>
-    <item name="android:textColor">#fff</item>
-    <item name="android:background">@color/colorPrimary</item>
-    <item name="android:radius">0dp</item>
-    <item name="android:typeface">monospace</item>
-</style>
-
-<style name="MyButtonDark" parent="MyButton">
-    <item name="android:textColor">#f2f2f2</item>
-    <item name="android:background">#000</item>
-</style>
+\begin{lstlisting}[language=Xml]
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true" >
+        <shape>
+            <gradient
+                android:startColor="#bf1d00"
+                android:endColor="#801300"
+                android:angle="270" />
+            <corners android:radius="10dp" />
+            <stroke
+                android:width="1dp"
+                android:color="#71c2eb" />
+        </shape>
+    </item>
+    <item>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android"
+            android:shape="rectangle">
+            <gradient android:startColor="#FFFFFF"
+                android:endColor="#999"
+                android:angle="270" />
+        </shape>
+    </item>
+</selector>
 \end{lstlisting}
 \captionof{lstlisting}{
-   Przykład styli dla przycisku
+    Przykład zdefiniowanego tła
 }
+\paragraph{}
+Wymaganiem była jednoczena zmiana wyglądu wszystkich przycisków. Rozwiązano to za pomocą metody statycznej, która iteruje po wszystkich przyciskach i wywołuje metdę backgroundResource.
 
-\begin{lstlisting}[language=XML]
-<Button
-    style="@style/MyButton"
-    android:text="Button 2"
-    android:id="@+id/button2"
-    android:layout_gravity="center_horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+
+\begin{lstlisting}[language=Java]
+ public static void setLayout(int i) {
+    for (CustomButton btn : buttons.values()) {
+        btn.setBackgroundResource(i);
+    }
+}
 \end{lstlisting}
 \captionof{lstlisting}{
-   Użycie stylu wraz z nadpisaniem właściwości
+   Zmiana tła dla wszystkich przcisków
 }
 
-\paragraph{}
-Jednakże z poziomu kodu źródłowego nie ma możliwości zmiany styli w trakcie uruchomienia aplikacji.  Dlatego też zrezygnowano z pełnego opisu warstwy GUI w plikach XML. Przyciski (w odpowiednim już stylu) są generowane bezpośrednio w kodzie źródłówym aplikacji (pliki Java). 
-\paragraph{}
-{\color{red}opsiać jak to sie robi inaczej + przykład implementacji klasy własnego buttona}
+
+\begin{lstlisting}[language=Java]
+CustomButton.setLayout(R.drawable.dark);
+\end{lstlisting}
+\captionof{lstlisting}{
+   Przykład wywołania zmiany tła przycisków.
+}
+
+
 
 \subsection{Informacje tekstowe}
 \paragraph{}

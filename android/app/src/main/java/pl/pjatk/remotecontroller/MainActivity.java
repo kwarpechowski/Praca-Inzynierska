@@ -39,21 +39,14 @@ public class MainActivity extends AppCompatActivity {
     //@OnClick(R.id.btn1)
     protected void click1() {
         System.out.println("click1");
-        this.changeLayout(R.drawable.light);
+        CustomButton.setLayout(R.drawable.light);
     }
 
    // @OnClick(R.id.btn2)
     protected void click2() {
         System.out.println("click2");
-        this.changeLayout(R.drawable.dark);
+        CustomButton.setLayout(R.drawable.dark);
     }
-
-
-    private void changeLayout(int myButton) {
-        CustomButton.setLayout(myButton);
-    }
-
-
 
 
 
