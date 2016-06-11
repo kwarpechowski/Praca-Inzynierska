@@ -4,43 +4,37 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.Toast;
+import java.util.HashMap;
 
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- * Created by kamilw on 09.06.2016.
- */
 public class CustomButton extends Button {
-    private static ArrayList<CustomButton> buttons = new ArrayList<CustomButton>();
-    private TypedArray attributes;
+    private static HashMap<String, CustomButton> buttons = new HashMap<String, CustomButton>();
+    private String name;
 
     public static void setLayout(int i) {
-
-        for (CustomButton btn : buttons) {
-            System.out.println("x");
+        for (CustomButton btn : buttons.values()) {
             btn.setBackgroundResource(i);
         }
     }
 
-    private  String getName() {
-        return attributes.getString(R.styleable.CustomButton_name);
+    public static void disableButton(String button_name) {
+        if(buttons.containsKey(button_name))
+            buttons.get(button_name).setEnabled(false);
     }
 
-    private void setUp() {
-        setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-        buttons.add(this);
-        setText(getName());
+    public static void enableButton(String button_name) {
+        if(buttons.containsKey(button_name))
+            buttons.get(button_name).setEnabled(true);
+    }
 
-        setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "Hello " + getName(), Toast.LENGTH_SHORT).show();
-            }
-        });
+    public static void setText(String button_name, String text) {
+        if(buttons.containsKey(button_name))
+            buttons.get(button_name).setText(text);
+    }
+
+    public String getName() {
+        return name;
     }
 
 
@@ -52,10 +46,12 @@ public class CustomButton extends Button {
     public CustomButton(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        attributes = context.getTheme().obtainStyledAttributes(
+        TypedArray attributes = context.getTheme().obtainStyledAttributes(
                 attrs,
                 R.styleable.CustomButton,
                 0, 0);
+
+        name = attributes.getString(R.styleable.CustomButton_name);
 
         setUp();
     }
@@ -68,6 +64,22 @@ public class CustomButton extends Button {
     public CustomButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         setUp();
+    }
+
+    private void setUp() {
+        buttons.put(getName(), this);
+        setText(getName());
+
+        setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                try {
+                    new Runner().execute(getName());
+                } catch (Exception e) {
+                    Toast.makeText(getContext(), R.string.SendError, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
 }

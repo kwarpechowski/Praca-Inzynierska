@@ -22,64 +22,69 @@ Przykładowa wizualizacja kontrolera
 
 \subsection{Przyciski}
 \paragraph{}
-Każdy przycisk może zostać skonfigurowany poprez ustawienie tekstu. Dodatkowo można zablokować przycisk podczas gdy nie jest on potrzebny w danym czasie.
-\paragraph{}
-Aby ułatwić pracę nad aplikacją stworzono pole wyliczalne (ENUM) zawierającą wszystkie przyciski.
+Każdy przycisk może zostać skonfigurowany poprez ustawienie tekstu. Dodatkowo można zablokować przycisk podczas gdy nie jest on potrzebny w danym czasie. 
+Jednym z główny założeń architektonicznych był rozdzielenie warstwy widoku od logiki biznesowej. Ustalono, że stworzenie nowego przycisku odbywać się będzie wymagało tylko dodania definicji w warstwie widoku (plik layout w formacie XML).
 
-\begin{lstlisting}[language=Java]
-public enum ButtonEnum {
-    BTN1, BTN2, BTN3, BTN4, BTN5, BTN6, BTN7, BTN8, BTN9, BTN10, BTN11
-}
+\begin{lstlisting}[language=XML]
+<pl.pjatk.remotecontroller.CustomButton
+    app:name="button2"
+    android:layout_gravity="center_horizontal"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+/>
 \end{lstlisting}
 \captionof{lstlisting}{
-	Enum z przyciskami
+	Przykład zdefiniowanego przycisku
 }
 \paragraph{}
-Jednakże aby powiązać elementy ,,Button'' z warstwy widoku (defincja XML) na kod przycisku  należy stworzyć listę elementów. Będzie ona służyła do wyszukiwania przycisków oraz zmiany ich właściwości. Dodatkowo do każdego przycisku należy dodać obsługę zdarzeń. Po kliknięciu wysyłany będzie odpowiedni komunikat.
+Na potrzeby realizacji powyższego założenia stworzono klasę CustomButton, która jest rozszerzeniem (dziedziczy bezpośrednio) klasy Button znajdującej się w pakiecie  android.widget.
+\paragraph{}
+Każdy z przycisków musi posiadać własną nazwę kodową, gdyż serwer podczas komunikacji sieciowej identyfikuje przycisk poprzez unikalny klucz. Domyślnie w środowisku Android każdy komponent wizualny może posiadać swoje Id, jednakże jest one reprezentowane poprzez liczbę typu Integer.
+Dla ułatwienia dalszego rozwoju aplikacji postanowiono stworzyć nowy atrybut. Ich definicje umieszczas ię w formacie XML w pliku attrs.xml
+
+\begin{lstlisting}[language=XML]
+<resources>
+    <declare-styleable name="CustomButton">
+        <attr name="name" format="string" />
+    </declare-styleable>
+</resources>
+\end{lstlisting}
+\captionof{lstlisting}{
+    Definicja atrybutu o nazwie name
+}
+
+\paragraph{}
+W konstuktorze poza domyślnymi wywołaniami klasy bazowej Button zapisywana jest wartość atrybutu name do zmiennej o tej nazwie oraz następuje wstępna konfiguracja przycisku.
 
 \begin{lstlisting}[language=Java]
-    protected HashMap<ButtonEnum, Button> buttonsMap = new HashMap<ButtonEnum, Button>();
+private static HashMap<String, CustomButton> buttons = new HashMap<String, CustomButton>();
 
-    protected void mapButton(int btnId, final ButtonEnum btnName) {
-        final Button button = (Button) findViewById(btnId);
-        buttonsMap.put(btnName, button);
+private void setUp() {
+    buttons.put(getName(), this);
+    setText(getName());
 
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                sendToServer("button_" + btnName);
+    setOnClickListener(new View.OnClickListener(){
+        @Override
+        public void onClick(View v) {
+            try {
+                new Runner().execute(getName());
+            } catch (Exception e) {
+                Toast.makeText(getContext(), R.string.SendError, Toast.LENGTH_SHORT).show();
             }
-        });
-    }
+        }
+    });
+}
 \end{lstlisting}
 \captionof{lstlisting}{
-	Metoda obsługująca przycisk
+    Konfiguracja w klasie CustomButton
 }
-
-
-\begin{lstlisting}[language=Java]
- @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        this.mapButton(R.id.button1, ButtonEnum.BTN1);
-        this.mapButton(R.id.button2, ButtonEnum.BTN2);
-
-    }
-\end{lstlisting}
-\captionof{lstlisting}{
-	Przykład mapowania przycisku
-}
-
-\subsection{Informacje tekstowe}
 \paragraph{}
-Pola tekstowe mogą mieć ustawioną dowolną treść w dowolnym czasie.
-
-\subsection{Komunikacja sieciowa}
-\paragraph{}
-{\color{red}tutaj opisać implementacje warstwy komunikacyjnej}
+{\color{red}opisac co tu sie dzieje}
 
 
 \subsection{Użycie styli}
+\paragraph{}
+Dodatkowym wymaganiem było umożliwienie szybkiej zmiany wyglądu przycisków.
 \paragraph{}
 Aby utrzymać porządek w kodzie kontrolera postaniowiono zastosować style do powtarzalnych elementów. W pliku styles.xml można zdefiniować własny styl - zbiór właściwości wizualnych mających posiadać np. wszystkie przyciski.
 
@@ -120,3 +125,11 @@ Aby utrzymać porządek w kodzie kontrolera postaniowiono zastosować style do p
 Jednakże z poziomu kodu źródłowego nie ma możliwości zmiany styli w trakcie uruchomienia aplikacji.  Dlatego też zrezygnowano z pełnego opisu warstwy GUI w plikach XML. Przyciski (w odpowiednim już stylu) są generowane bezpośrednio w kodzie źródłówym aplikacji (pliki Java). 
 \paragraph{}
 {\color{red}opsiać jak to sie robi inaczej + przykład implementacji klasy własnego buttona}
+
+\subsection{Informacje tekstowe}
+\paragraph{}
+Pola tekstowe mogą mieć ustawioną dowolną treść w dowolnym czasie.
+
+\subsection{Komunikacja sieciowa}
+\paragraph{}
+{\color{red}tutaj opisać implementacje warstwy komunikacyjnej}

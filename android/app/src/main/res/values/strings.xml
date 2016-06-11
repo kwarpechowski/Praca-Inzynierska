@@ -3,4 +3,5 @@
     <string name="btnCommand">button_</string>
     <string name="host">host</string>
     <string name="port">port</string>
+    <string name="SendError">Problem z wysłaniem</string>
 </resources>
