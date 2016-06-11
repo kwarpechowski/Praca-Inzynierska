@@ -7,9 +7,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-/**
- * Created by kamilw on 05.06.2016.
- */
 public class Runner extends AsyncTask<String, Void, Boolean> {
     private static DataOutputStream dataOutputStream = null;
     private static String host;
