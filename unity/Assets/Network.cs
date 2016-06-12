@@ -2,7 +2,7 @@
 using System.Collections;
 using SocketIO;
 using System.Collections.Generic;
-
+using AssemblyCSharp;
 public class Network : MonoBehaviour {
 
 	private SocketIOComponent socket;
@@ -19,36 +19,56 @@ public class Network : MonoBehaviour {
 		StartCoroutine (RunPoints());
 	}
 
-	IEnumerator RunPoints() {
-		yield return new WaitForSeconds(5);
-		Debug.Log("xx");
-
+	private void DisableButton(ButtonEnum btn) {
 		Dictionary<string, string> dic = new Dictionary<string, string> ();
-		dic.Add ("name", "button1");
-		JSONObject jo = new JSONObject (dic);
+		dic.Add ("name", btn.ToString());
+		socket.Emit ("disable_button", new JSONObject (dic));
+	}
 
+	private void EnableButton(ButtonEnum btn) {
+		Dictionary<string, string> dic = new Dictionary<string, string> ();
+		dic.Add ("name", btn.ToString());
+		socket.Emit ("enable_button", new JSONObject (dic));
+	}
 
-		socket.Emit ("disable_button", jo);
+	private void SetText(ButtonEnum btn, string text) {
+		Dictionary<string, string> dic = new Dictionary<string, string> ();
+		dic.Add ("name", btn.ToString());
+		dic.Add ("text", text);
+		socket.Emit ("set_text", new JSONObject (dic));
+	}
+
+	IEnumerator RunPoints() {
+
+	
+
 		yield return new WaitForSeconds(5);
-		Debug.Log("xx");
-		socket.Emit ("disable_button", jo);
+		DisableButton (ButtonEnum.BUTTON1);
 		yield return new WaitForSeconds(5);
-		Debug.Log("xx");
-		socket.Emit ("disable_button", jo);
+		DisableButton (ButtonEnum.BUTTON2);
 		yield return new WaitForSeconds(5);
-		Debug.Log("xx");
-		socket.Emit ("disable_button", jo);
+		DisableButton (ButtonEnum.BUTTON3);
 		yield return new WaitForSeconds(5);
-		Debug.Log("xx");
-		socket.Emit ("disable_button", jo);
+		DisableButton (ButtonEnum.BUTTON4);
 		yield return new WaitForSeconds(5);
-		Debug.Log("xx");
-		socket.Emit ("disable_button", jo);
+		EnableButton (ButtonEnum.BUTTON1);
+		yield return new WaitForSeconds(5);
+		EnableButton (ButtonEnum.BUTTON2);
+		yield return new WaitForSeconds(5);
+		EnableButton (ButtonEnum.BUTTON3);
+		yield return new WaitForSeconds(5);
+		EnableButton (ButtonEnum.BUTTON4);
 
 	}
 
 	public void TestOpen(SocketIOEvent e) {
 		socket.Emit ("register_game");
+		SetText (ButtonEnum.BUTTON1, "hej");
+		SetText (ButtonEnum.BUTTON2, "ho");
+		SetText (ButtonEnum.BUTTON3, "hej");
+		SetText (ButtonEnum.BUTTON4, "ho");
+		SetText (ButtonEnum.BUTTON5, "hej");
+		SetText (ButtonEnum.BUTTON6, "ho");
 	}
 
 	public void Button(SocketIOEvent e) {
