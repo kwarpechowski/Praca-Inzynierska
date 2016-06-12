@@ -40,4 +40,8 @@ io.on('connection', function (socket) {
         io.to('game').emit("button", data);
         console.log("emituje do gry", data);
     });
+
+     socket.on('points', function (data) {
+        console.log("punkty", data);
+    });
 });

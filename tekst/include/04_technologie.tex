@@ -6,7 +6,8 @@
 Unity jest obecnie najpopularniejszą platformą do tworzenia gier (zarówno trójwymiarowych jak i dwówymiarowych) na wiele platform sprzętowych. Silnik ten korzysta z API Direct3D (na urządzeniach Windows) oraz OpenGL.
 \subsubsection{Dlaczego Unity}
 \paragraph{}
-Najnowsza wersja posiada natywne wsparcie do rozszerzonej oraz wirtualnej rzeczywistości. Narzędzie te posiada prosty, ergonomiczny interfejs co ułatwia pracę.
+Najnowsza wersja posiada natywne wsparcie do rozszerzonej oraz wirtualnej rzeczywistości. Dodatkowo większość projektów budowanych w oparciu o idelogoię AR dostarcza Sowtware Dewelopment Kit własnie dla Unit, co za tym idzie możlwe jest łatwie porównanie różnych implementacji.
+Narzędzie te posiada prosty, ergonomiczny interfejs co ułatwia pracę.
 \paragraph{}
 Bardzo pomocnym dodatkiem do narzędzia jest ,,Assets Store''. Jest to wirtualny sklep z komonentami do tworzenia gry. W projekcie zastosowałem tekstury i obiekty 3D pochodzące z tego źródła.
 
@@ -50,15 +51,6 @@ Naturalnym wyborem technologii przy tworzeniu aplikacji na urządzenie sterując
 \paragraph{}
 Na potrzeby implementacji przykładowego urządzenia sterującego wybrano platformę Android, gdyż ma ona największy udzła w rynku.\footnote{https://www.netmarketshare.com/operating-system-market-share.aspx?qprid=10\&qpcustomd=1} Proces tworzania aplikacji na tą platformę przebiega w języku Java.
 
-\subsubsection{Android Studio}
-\paragraph{}
-opisac
-
-\subsubsection{Zależności}
-\begin{enumerate}
-	\item Butter Knife
-\end{enumerate}
-
 \subsection{Komunikacja sieciowa}
 \paragraph{}
 Największym wyzwaniem było stworzenie dwukierunkowego protokołu komunikacyjnego pomiędzy serwerem (aplikacja napisana w środowisku Unity) oraz dowolnym kontrolerem lub w przyszłości innym urządzeniem wysłającym dane do aplikacji. Podstawowym założeniem było to iż, kontrolerem gry może być standardowy telefon komórkowy. Dodatkowo w przyszłości planowana jest rozbudowa o zdalne sterowanie za pomocą przeglądarki internetowej. Pierwotnie ozważane było użycie Bluetooth, jednak ograniczyłoby to zdalne sterowanie. Podjęto decyzję projektową o użyciu połączenia sieciowego. Rozważano następujące protokoły:
@@ -70,9 +62,8 @@ Unity wspiera natywną obsługę multiplayer - UNET, jednakże jest to zamknięt
 \subsubsection{HTTP (SOAP, REST)}
 \paragraph{}
 Komunikacja za pomocą HTTP (protokoły komunikacyjne takie jak np. SOAP, REST) są bardzo często spotykane. Jest to standard aplikacji internetowych. HTTP nadaje się do przesyłu dużych wolumenów danych, jednak niezbyt dobrze sprawdza się przy małych, lecz częstych połązeniach pomiędzy klientem, a serwerem. Duży narzut czasowy może spowodować transormacja danych do oraz z formatu JSON lub XML. Jednakże dużą zaletą wspomnianych protokołów jest prostota implementacji w większości języków programowania, gdyż są już gotowe komponenty.
-\subsubsection{TCP}
+\subsubsection{WebSocket}
 \paragraph{}
-{\color{red}Opisać, że TCP jest ogólnie lepsze - socket, ale to jest nadal połączeniowy, więc lepiej by było udp}
-\subsubsection{UDP}
-\paragraph{}
-{\color{red}opisać, ze to najlepsze rozwiazanie - bezpolazeniowe}
+Zdecydowano, że najlepszym rozwiązaniem będzie użycie protokołu komunikacyjnego TCP, a dokładniej technologii WebSocket, która pozwala na dwustronną komunikację na zasadzie klient-serwer. Jest to protokół połączeniowy.
+W celu ułatwienia implementacji wybrano bibliotekę socket.io\footnote{http://socket.io/}. Główną jej zaletą jest możliwość nasłuchiwania i emitowania danych do wszystkich odbiorców z poszczególnej grupy. Pozwala to na stworzenie platformy, która będzie mogła w przyszłości obsługiwać wiele instancji gry lub kilka kontrolerów jednocześnie. Dodatkowym udogodnieniem jest to, iż popularność tej biblioteki sprawiła, że posiada ona wiele implementacji w różnych językach programowania.
+Jako Middleware - pośrednik pomiędzy grą, a kontrolerem wybrano technologię Node.js. Zbudowano lekki szkielet, obsługujący połączenia wielokierunkowe. Dzięki wydzieleniu Middleware żadna z instancji gry lub kontrolera nie pełni roli serwera co powoduje wzrost wydajności danej platformy. Dodatkowo w przyszłości można rozbudować serwer o możliwość przechowywania zapisanego stanu gry lub np. ilości punktów zebranych przez użytkownika.

@@ -14,6 +14,30 @@ public class Network : MonoBehaviour {
 
 		socket.On("open", TestOpen);
 		socket.On("button", Button);
+
+		StartCoroutine (RunPoints());
+	}
+
+	IEnumerator RunPoints() {
+		yield return new WaitForSeconds(5);
+		Debug.Log("xx");
+		socket.Emit ("points", new JSONObject(1));
+		yield return new WaitForSeconds(5);
+		Debug.Log("xx");
+		socket.Emit ("points", new JSONObject(2));
+		yield return new WaitForSeconds(5);
+		Debug.Log("xx");
+		socket.Emit ("points", new JSONObject(3));
+		yield return new WaitForSeconds(5);
+		Debug.Log("xx");
+		socket.Emit ("points", new JSONObject(4));
+		yield return new WaitForSeconds(5);
+		Debug.Log("xx");
+		socket.Emit ("points", new JSONObject(5));
+		yield return new WaitForSeconds(5);
+		Debug.Log("xx");
+		socket.Emit ("points", new JSONObject(6));
+
 	}
 
 	public void TestOpen(SocketIOEvent e) {
