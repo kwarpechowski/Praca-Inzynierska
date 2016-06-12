@@ -30,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
         ButterKnife.bind(this);
-        startConnection(getBaseContext());
+
+        SendToServer.start(getBaseContext());
 
         click1();
     }
@@ -46,28 +47,6 @@ public class MainActivity extends AppCompatActivity {
     protected void click2() {
         System.out.println("click2");
         CustomButton.setLayout(R.drawable.dark);
-    }
-
-
-
-    private void startConnection(Context context) {
-        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(context);
-        String host = SP.getString(getString(R.string.host), "xxx");
-        int port = Integer.parseInt(SP.getString(getString(R.string.port), "666"));
-
-        try {
-            Runner.saveData(host, port);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void sendToServer(String key) {
-        try {
-            new Runner().execute(key);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
 }

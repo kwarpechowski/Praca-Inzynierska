@@ -37,7 +37,6 @@ public class CustomButton extends Button {
         return name;
     }
 
-
     public CustomButton(Context context) {
         super(context, null);
         setUp();
@@ -73,11 +72,7 @@ public class CustomButton extends Button {
         setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                try {
-                    new Runner().execute(getName());
-                } catch (Exception e) {
-                    Toast.makeText(getContext(), R.string.SendError, Toast.LENGTH_SHORT).show();
-                }
+                SendToServer.click_button(getName());
             }
         });
     }
