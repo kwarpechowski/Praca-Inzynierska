@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using SocketIO;
+using System.Collections.Generic;
 
 public class Network : MonoBehaviour {
 
@@ -21,22 +22,28 @@ public class Network : MonoBehaviour {
 	IEnumerator RunPoints() {
 		yield return new WaitForSeconds(5);
 		Debug.Log("xx");
-		socket.Emit ("points", new JSONObject(1));
+
+		Dictionary<string, string> dic = new Dictionary<string, string> ();
+		dic.Add ("name", "button1");
+		JSONObject jo = new JSONObject (dic);
+
+
+		socket.Emit ("disable_button", jo);
 		yield return new WaitForSeconds(5);
 		Debug.Log("xx");
-		socket.Emit ("points", new JSONObject(2));
+		socket.Emit ("disable_button", jo);
 		yield return new WaitForSeconds(5);
 		Debug.Log("xx");
-		socket.Emit ("points", new JSONObject(3));
+		socket.Emit ("disable_button", jo);
 		yield return new WaitForSeconds(5);
 		Debug.Log("xx");
-		socket.Emit ("points", new JSONObject(4));
+		socket.Emit ("disable_button", jo);
 		yield return new WaitForSeconds(5);
 		Debug.Log("xx");
-		socket.Emit ("points", new JSONObject(5));
+		socket.Emit ("disable_button", jo);
 		yield return new WaitForSeconds(5);
 		Debug.Log("xx");
-		socket.Emit ("points", new JSONObject(6));
+		socket.Emit ("disable_button", jo);
 
 	}
 

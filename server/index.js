@@ -41,7 +41,17 @@ io.on('connection', function (socket) {
         console.log("emituje do gry", data);
     });
 
-     socket.on('points', function (data) {
+    socket.on('points', function (data) {
         console.log("punkty", data);
+    });
+
+    socket.on('disable_button', function (data) {
+      console.log("disable_button", data);
+      io.to('controller').emit("disable_button", data);
+    });
+
+    socket.on('enable_button', function (data) {
+      console.log("enable_button", data);
+      io.to('controller').emit("enable_button", data);
     });
 });

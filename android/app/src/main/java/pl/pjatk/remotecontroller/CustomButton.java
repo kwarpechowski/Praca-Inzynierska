@@ -5,7 +5,7 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+
 import java.util.HashMap;
 
 public class CustomButton extends Button {
@@ -72,9 +72,10 @@ public class CustomButton extends Button {
         setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                SendToServer.click_button(getName());
+                ServerCommunication.click_button(getName());
             }
         });
+
     }
 
 }
