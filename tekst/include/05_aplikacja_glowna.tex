@@ -132,7 +132,46 @@ Na początku wyszukiwaniy jest obiekt gry o określonej nazwie, a następnie pob
 
 Metoda On w klase SocketIOComponent odpowiada za nasłuchiwanie serwera. Jako pierwszy parametr przymuje ciąg znaków określający nazwę metody. Natomiast drugi to referencja do metody, która wywoła się podczas wywołania akcji o nazwie wynikającej z pierwszego parametru.
 
+Na potrzeby łatwiejszego zarządzania zdarzeniami i uniknięcia błędów w nazwach przycisków stworzono enum, zawierający nazwy obsługiwanych przycisków. Wszystkie metody odpowiadające za komunikację, a zwłąszcza za zarządzanie stanami oraz nazwami przycisków powinny przyjmować w parametrze opisywany atrybut wyliczalny.
+
+\begin{lstlisting}[language=CSharp]
+using System;
+
+namespace AssemblyCSharp
+{
+	public enum ButtonEnum
+	{
+		BUTTON1, BUTTON2, BUTTON3, BUTTON4, BUTTON5, BUTTON6, BUTTON7, BUTTON8, BUTTON9, BUTTON10
+	}
+}
+
+\end{lstlisting}
+\captionof{lstlisting}{
+	Definicja przycisków.
+}
+
+\paragraph{}
 Metoda zarejestrowana pod nazwą ,,open'' wywoła się przy udanym zestawieniu połączenia. Jest to najlepsze miejsce do wstępnej konfiugracji planszy gry oraz przycisków w kontrolerze.
+
+\begin{lstlisting}[language=CSharp]
+public void InitGame(SocketIOEvent e)
+{
+	socket.Emit("register_game");
+	EnableButton(ButtonEnum.BUTTON1);
+	SetText(ButtonEnum.BUTTON1, "Nazwa 1");
+	DisableButton(ButtonEnum.BUTTON2);
+}
+\end{lstlisting}
+\captionof{lstlisting}{
+	Inicjalizacja komponentów
+}
+
+\paragraph{}
+Powyższy przykład inicjalizacji pokazuje emotowanie akcji do serwera o nazwie ,,register\_game''. Służy on do zarejestrowania gry na serwerze. Od tego czasu wszystkie akcje z kontrolera (np. wciśnięcie przycisku) będzie emitowane do gry.
+Dodatkowo ukazano wstępną konfigurację przycisków: Uaktywnienie przycisku pierwszego, ustawienie okreśonej nazwy oraz wyłączenie przycisku drugiego.
+
+\subsubsection{Budowanie zapytania}
+
 
 {\color{red}Dokończyć opisywać logikę, network manager itd}.
 
