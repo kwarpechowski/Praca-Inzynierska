@@ -172,6 +172,20 @@ Dodatkowo ukazano wstępną konfigurację przycisków: Uaktywnienie przycisku pi
 
 \subsubsection{Budowanie zapytania}
 
+\begin{lstlisting}[language=CSharp]
+public void SetText(ButtonEnum btn, string text) {
+	Dictionary<string, string> dic = new Dictionary<string, string> ();
+	dic.Add ("name", btn.ToString());
+	dic.Add ("text", text);
+	socket.Emit ("set_text", new JSONObject (dic));
+}
+\end{lstlisting}
+\captionof{lstlisting}{
+	Przykładowe zapytanie do gra - kontroler
+}
+
+
+
 
 {\color{red}Dokończyć opisywać logikę, network manager itd}.
 
@@ -244,4 +258,22 @@ void Kilof () {
 
 \subsection{Serwer komunikacyjny}
 \paragraph{}
-{\color{red}Opisać}
+Jako technologię do obsługi połączeń zastosowano NodeJS. Obecnie jedyną zależnością zewnętrzną jest biblioteka Socket.IO \footnote{https://www.npmjs.com/package/socket.io}.
+Jako manager zależności wybrano NPM. Jest on domyślnie dołączony do oprogramowania NodeJS. Aby pobrać zależności należy uruchomić polecenie ,,npm install'' w katalogu projektu.
+
+\begin{lstlisting}[language=CSharp]
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "Kamil Warpechowski",
+  "license": "GNU",
+  "devDependencies": {
+    "socket.io": "^1.4.6"
+  }
+}
+\end{lstlisting}
+\captionof{lstlisting}{
+	Definicja zależności w projekcie
+}
