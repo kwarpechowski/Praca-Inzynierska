@@ -1,7 +1,7 @@
 \newpage
 \section{Aplikacja główna}
 \paragraph{}
-{\color{red}Jakiś wstęp?}
+Glownym zalozeniem aplikacji w Unity jest stworzenie wirtualnego świata składającego się z wizualizacji dwoch scian oraz elementow znajdujacych sie na nich. Po wyznaczonych elementach poruszać się beda aktorzy, czyli postacie gry.
 
 {\color{red}tutaj będą makiety}
 
@@ -48,11 +48,6 @@ public void SendInfo() {
 \captionof{lstlisting}{
 	Do Poprawy
 }
-
-\subsection{Kamery}
-\paragraph{}
-Platforma Unity wspiera do 8 wirtualnych kamer \footnote{http://docs.unity3d.com/Manual/MultiDisplay.html}.
-Każda z tych kamer może być prezentowana na oddzielnym fizycznym ekranie.
 
 \subsection{Prefabrykaty}
 \paragraph{}
@@ -105,11 +100,41 @@ Podczas testów uruchomieniowych przy dwóch kamerach występował problem z wyd
 \paragraph{}
 Kolejny prefabrykat stworzono by zachować spójność w oświetleniu trójwymiarowej sceny. Służy on do zgrupowania wszystkich źródeł wirtualnego światała. Jest to element bez zwwartej logiki biznesowej. Stworzono go w celu zachowania porządku w projekcie.
 
+
+\subsection{SocketIO}
+\paragraph{}
+Jest to prefabrykat dostarczony jako kompotent implementacji Socket.io w bibliotece Asset Store. Jest on udostępniony na licencji Open Source.  Musi być on umiejscowiony w każdej scenie, która korzysta z połączenia sieciowego. Umiejscowienie jest dowolne, gdyż jest to prefabrykat abstrakcyjny (nie posiada graficznej reprezentacji w trójwymiarowym modelu). W prefabrykacie wywołano skrpyt SocketIOComponent, który odpowiada za inicjalizacje komunukacji sieciowej.
+
 \subsubsection{Network}
 \paragraph{}
-Jest to prefabrykat abstrakcyjny (nie posiada graficznej reprezentacji w trójwymiarowym modelu). SŁuży on jako trigger uruchomienowy do skryptu obsługującego połączenia sieciowe.
+Jest to kolejny prefabrykat abstrakcyjny, który służy do uruchomienia klasy Network odpowiadającej za implementacje metod służących do dwustronnej komunikacji.
+Prefabrykat ten jest nierozerwalnie złączony z SocketIO, gdyż bezpośrendio korzysta z metod dostarczonych przez tą bibliotekę.
 
-{\color{red}Opisać logikę, network manager itd}.
+
+\begin{lstlisting}[language=CSharp]
+private SocketIOComponent socket;
+
+// Use this for initialization
+void Start () {
+	GameObject go = GameObject.Find("SocketIO");
+	socket = go.GetComponent<SocketIOComponent>();
+
+	socket.On("open", InitGame);
+	socket.On("button", Button);
+}
+\end{lstlisting}
+\captionof{lstlisting}{
+	Inicjalizacja skryptu
+}
+
+\paragraph{}
+Na początku wyszukiwaniy jest obiekt gry o określonej nazwie, a następnie pobierany komponent, czyli obiekt klasy. Warto pamiętać, ze połączenie inicjalizowane jest już przy uruchomieniu, więc nie ma potrzeby ,,ręcznego'' zestawiania warstwy sieciowej.
+
+Metoda On w klase SocketIOComponent odpowiada za nasłuchiwanie serwera. Jako pierwszy parametr przymuje ciąg znaków określający nazwę metody. Natomiast drugi to referencja do metody, która wywoła się podczas wywołania akcji o nazwie wynikającej z pierwszego parametru.
+
+Metoda zarejestrowana pod nazwą ,,open'' wywoła się przy udanym zestawieniu połączenia. Jest to najlepsze miejsce do wstępnej konfiugracji planszy gry oraz przycisków w kontrolerze.
+
+{\color{red}Dokończyć opisywać logikę, network manager itd}.
 
 \subsubsection{Replikator}
 \paragraph{}

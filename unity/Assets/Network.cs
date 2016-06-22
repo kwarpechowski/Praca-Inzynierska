@@ -9,17 +9,25 @@ public class Network : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log ("startuje");
 		GameObject go = GameObject.Find("SocketIO");
 		socket = go.GetComponent<SocketIOComponent>();
 
-		socket.On("open", TestOpen);
+		socket.On("open", InitGame);
 		socket.On("button", Button);
-
-		StartCoroutine (RunPoints());
 	}
 
-	private void DisableButton(ButtonEnum btn) {
+    public void InitGame(SocketIOEvent e)
+    {
+        socket.Emit("register_game");
+        SetText(ButtonEnum.BUTTON1, "Nazwa 1");
+        SetText(ButtonEnum.BUTTON2, "Nazwa 2");
+        SetText(ButtonEnum.BUTTON3, "Nazwa 3");
+        SetText(ButtonEnum.BUTTON4, "Nazwa 4");
+        SetText(ButtonEnum.BUTTON5, "Nazwa 5");
+        SetText(ButtonEnum.BUTTON6, "Nazwa 6");
+    }
+
+    private void DisableButton(ButtonEnum btn) {
 		Dictionary<string, string> dic = new Dictionary<string, string> ();
 		dic.Add ("name", btn.ToString());
 		socket.Emit ("disable_button", new JSONObject (dic));
@@ -61,15 +69,6 @@ public class Network : MonoBehaviour {
 
 	}
 
-	public void TestOpen(SocketIOEvent e) {
-		socket.Emit ("register_game");
-		SetText (ButtonEnum.BUTTON1, "hej");
-		SetText (ButtonEnum.BUTTON2, "ho");
-		SetText (ButtonEnum.BUTTON3, "hej");
-		SetText (ButtonEnum.BUTTON4, "ho");
-		SetText (ButtonEnum.BUTTON5, "hej");
-		SetText (ButtonEnum.BUTTON6, "ho");
-	}
 
 	public void Button(SocketIOEvent e) {
 		Debug.Log ("xxxxX "+ e.data);
