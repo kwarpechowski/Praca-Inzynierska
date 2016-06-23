@@ -277,3 +277,29 @@ Jako manager zależności wybrano NPM. Jest on domyślnie dołączony do oprogra
 \captionof{lstlisting}{
 	Definicja zależności w projekcie
 }
+
+\paragraph{}
+Głównym założeniem części serwerowej jest propagowanie wiadomości na linii kontroler - gra. Jednakże dzięki zastosowaniu Socket.IO możliwa jest obsługa wielu urządzeń jednocześnie. (np. dwóch kontrolerów). Dlatego też zastosowano mechanizm pokoi. Jest to grupowanie uniklanych identyfikatorów połaczeń, co pozwala wysyłać komunikaty jednocześnie do wszystkich kontrolerów lub gier. Na potrzeby projektu wprowadzono limity (jedna gra, dwa kontrolery), jednakże w przyszłości jest możliwość dalszej rozbudowy.
+
+\begin{lstlisting}[language=CSharp]
+socket.on('register_controller', function () {
+ if(io.sockets.adapter.rooms[CONTROLLER].length < 1) {
+	console.log("register controller");
+	socket.join(CONTROLLER);
+ }
+});
+
+socket.on('register_game', function () {
+   if(io.sockets.adapter.rooms[GAME]) {
+	console.log("register game");
+	socket.join(GAME);
+   }
+});
+}
+\end{lstlisting}
+\captionof{lstlisting}{
+	Grupowanie połączeń
+}
+
+\paragraph{}
+Dalej opisać przykład propagacji

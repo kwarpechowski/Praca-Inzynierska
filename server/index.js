@@ -25,13 +25,17 @@ io.on('connection', function (socket) {
     console.log("hello", socket.id);
 
     socket.on('register_controller', function () {
+     if(io.sockets.adapter.rooms[CONTROLLER].length < 1) {
         console.log("register controller");
         socket.join(CONTROLLER);
+     }
     });
 
     socket.on('register_game', function () {
+       if(io.sockets.adapter.rooms[GAME]) {
         console.log("register game");
         socket.join(GAME);
+       }
     });
 
 
@@ -41,7 +45,7 @@ io.on('connection', function (socket) {
 
     socket.on('click', function (data) {
         io.to(GAME).emit("button", data);
-        console.log("emituje do gry", data);
+        console.log("emmit", data);
     });
 
     socket.on('points', function (data) {
