@@ -31,8 +31,6 @@ Zaobserowano:
 	\item Umiejscowienie projektora pod kątem względem szyby powoduje bardziej naturalny obraz. Nie widać wtedy głównego strumienia światła z projektora (strumień światła nie jest prowadzony w linii prostej do odbiorcy), co za tym idzie  nie ma odczucia oślepienia.
     \item Użycie specjalnej folii do projekcji tylnej powoduje najlepszy odbiór. Inne folie przepuszczały zbyt małą ilość światła, bądź obraz z projektora był mało ostry.
     \item Użycie projektora w technologii LED okazało się lepsze, niż zastosowanie standardowego projektora multimedialnego. Mała odległość pomiędzy drzwiam, a urządzeniem pozwalała na użycie projektora z małą ilościa lumenów.
- 
-    \item {\color{red}dalej}
 \end{itemize}
 
 \paragraph{}
@@ -41,7 +39,7 @@ Jednakże zrezygnowano z powyższego pomysłu, ponieważ napotkano problem nakł
 \begin{center}
 \includegraphics[width=0.9\textwidth]{images/hologramv1.png}
 \captionof{figure}{
-Poglądowy schemat działania
+Poglądowy schemat działania hologramu
 }
 \small {źródło: własne }
 \end{center}
@@ -53,6 +51,19 @@ Kolejnym pomysłem było zastosowanie video mappingu 3d. Jest to technologia cz�
 Technologia polega na ośwetlaniu rzeczywistego elementu  źródłem światła z projektora multimedialnego. Najlepsze efekty można uzyskać w zaciemnionych pomieszczeniach oraz przy lampach z dużą ilością lumenów. Dzięki temu za pomocą kolorów można pokazywać lub uniewidaczniać elementy przy wykorzystaniu koloru czarnego. Podczas projekcji ciemnego koloru ilość światła z projektora jest bardzo znikoma, co za tym idzie powstaje złudzenie, że element oświetlony światłem czarnym jest niewidoczny.
 Przy realizacji większości instalacji takiego typu stosowany jest wcześniej przygotowany obraz wideo. Instalacje nie są interaktywne. Jednakże dzięki temu nawet zaawanowane animacje trójwymiarowe obciążają sprzęt komputerowy tylko podczas renderowania (zamiany obiektów trójwymiarowych na strumień video). Wprowadzenie elementów interaktywnych (np. sterowanie grą) mocno obicąża kartę graficzną komputera.
 \paragraph{}
-{\color{red}Tutaj opisać dwa ekrany}
+Założono, że projekcja odbywać będzie się na dwóch prostopadłych do siebie ścianach. Takie podejście wymaga dwóch projektorów. Jednakże obraz z nich musi być syncrhonizowany, ponieważ elementy interaktywne (np. postacie) będą przemieszczały się z jednej sciany na drugą. Zastosowanie dwóch komputerów wymagałoby stworzenia protokołu komunikacyjnego. Założono, iż zastosowany będzie jeden komputer z wydajną kartą graficzną, która obsłuży dwa źródła wyjścia.
 
-{\color{red}Tutaj opisać próby i przemyślenia + wstawić obrazek}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{images/mappingv1.png}
+\captionof{figure}{
+Poglądowy schemat działania - mapping
+}
+\small {źródło: własne }
+\end{center}
+
+\paragraph{}
+Zaobserowano:
+\begin{itemize}
+	\item Efekty wizualne są odpowiednie, jednakże zauważalny jest brak głębi obrazu. Wszystkie elementy są dwuwymiarowe.
+	\item Bardo ważnym aspektem jest jakoś lampy projektora i jego umiejscowienie. Nawet drobne przesunięcie projektora w stosunku do ściany moźe zaburzyć odbiór instalacji.
+\end{itemize}

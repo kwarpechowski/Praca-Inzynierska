@@ -54,22 +54,16 @@ io.on('connection', function (socket) {
 
     socket.on('disable_button', function (data) {
       console.log("disable_button", data);
-      //if(socket.rooms.indexOf(GAME) >= 0) {
-        io.to(CONTROLLER).emit("disable_button", data);
-      //}
+      io.to(CONTROLLER).emit("disable_button", data);
     });
 
     socket.on('enable_button', function (data) {
       console.log("enable_button", data);
-      //if(socket.rooms.indexOf(GAME) >= 0) {
-        io.to(CONTROLLER).emit("enable_button", data);
-      //}
+      io.to(CONTROLLER).emit("enable_button", data);
     });
 
     socket.on('set_text', function (data) {
       console.log("set_text", data);
-      //if(socket.rooms.indexOf(GAME) >= 0) {
-        io.to(CONTROLLER).emit("set_text", data);
-      //}
+      io.to(CONTROLLER).emit("set_text", data);
     });
 });

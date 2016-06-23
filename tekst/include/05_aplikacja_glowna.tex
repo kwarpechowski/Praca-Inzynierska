@@ -301,5 +301,14 @@ socket.on('register_game', function () {
 	Grupowanie połączeń
 }
 
+\begin{lstlisting}[language=CSharp]
+socket.on('enable_button', function (data) {
+  console.log("enable_button", data);
+  io.to(CONTROLLER).emit("enable_button", data);
+});
+\end{lstlisting}
+\captionof{lstlisting}{
+	Przykład propagacji komunikatu
+}
 \paragraph{}
-Dalej opisać przykład propagacji
+W prztszłości możliwe jest przechowywanie stanu gry na poziomie serwera (każdy kontroler może przesłać unikalny identyfikator urządzenia).
