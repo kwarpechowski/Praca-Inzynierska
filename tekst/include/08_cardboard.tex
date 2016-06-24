@@ -4,7 +4,7 @@
 Innym przykładem implementacji projektu w rozszerzonej rzeczywistości może być platforma Google Cardboard \footnote{https://vr.google.com/cardboard/index.html}. Są to niskobudżetowe okulary stworzone przez firmę Google do wyświetlania wirtualnej rzeczywistości. Kartonowe okulary powstały w celu wyświetlania obrazu stereoskopowego. Posiadają one miejsce do umieszczenia dowolnego telefonu komórkowego typu smartphone. Do projektu wybrano wersję, która pozwala na umieszczenie telefonu w sposób taki, iż tylna kamera nie jest zasłonięta przez obudowę. Dzięki temu można użyć platformę Cardboard przeznaczoną pierwotnie tylko do wirtualnej rzeczywistości do stworzenia aplikacji wykorzystującą augmented reality.
 
 \begin{center}
-\includegraphics[width=0.9\textwidth]{images/cardboard.jpg}
+\includegraphics[width=1\textwidth]{images/cardboard.jpg}
 \captionof{figure}{
 Google Cardboard w wersji do samodzielnego złożenia
 }
@@ -15,7 +15,7 @@ Google Cardboard w wersji do samodzielnego złożenia
 Dzięki użyciu kamery użytkownik widzi obraz znajdujący się przed nim. Aby obraz był stereoskopowy należało stworzyć aplikację, która wyświetlić strumień danych z kamery dzieląc go na dwa obrazy (kolejno dla lewego oraz prawego oka).
 
 \begin{center}
-\includegraphics[width=0.9\textwidth]{images/kadr.jpg}
+\includegraphics[width=1\textwidth]{images/kadr.jpg}
 \captionof{figure}{
 Ujęcie z kamery aparatu w obrazie stereoskopowym - scena w Unity
 }
@@ -30,7 +30,7 @@ W celu wyświetlenia wirtualnych obiektów na obrazie z kamery rozbudowano aplik
 Za pomocą tej biblioteki możliwe jest wykrywanie w obrazie z kamery markerów, czyli specjalnie przygotowanych czarno-białych obrazków (w naiwnej implementacji - wydrukowanych na kartkach), oraz nakładanie w ich miejsce trójwymiarowych modeli lub całych scen. Dzięki bibliotece ArToolkit możliwe jest diagnozowanie pod jakim kątem padania oraz w jakiej odległości od urządzenia znajduje się marker. Umiejscowienie tagu analizowane jest w czasie rzeczywistym, co zapewni ciągłą korekcję ułożenia wirtualnych modeli względem ich realnych odpowiedników.
 
 \begin{center}
-\includegraphics[width=0.9\textwidth]{images/hiro.png}
+\includegraphics[width=1\textwidth]{images/hiro.png}
 \captionof{figure}{
 Przykład przygotowanego obrazka do rozpoznawania - marker
 }
@@ -41,22 +41,22 @@ Szablony markerów można wykonywać we własnym zakresie. Aby zaimportować now
 \footnote{http://bit.ly/1YU199f}.
 
 \begin{center}
-\includegraphics[width=0.9\textwidth]{images/artoolkit-demo.jpg}
+\includegraphics[width=1\textwidth]{images/artoolkit-demo.jpg}
 \captionof{figure}{
 Przykład zastosowania markera w ARToolkit
 }
 \small {źródło http://arblog.inglobetechnologies.com/?p=421}
 \end{center}
 \subsection{Przykład implementacji}
-\paragraph{}
-{\color{red}Opisać}
 \begin{center}
-\includegraphics[width=0.9\textwidth]{images/artoolkit-przyklad.png}
+\includegraphics[width=1\textwidth]{images/artoolkit-przyklad.png}
 \captionof{figure}{
 Podstawowa impementacja
 }
 \small {źródło własne}
 \end{center}
+\paragraph{}
+Implementacja na platformie Unity przy użyciu ArToolkit jest zasadniczo prosta. Przy użyciu wcześniej przygotowanych kodów markerów (domyślnie dostępne są dwa) i zastosowaniu prefabrykatów w trójwymiarowej przestrzeni można wskazać miejsce od którego będzie odliczana odległość do pozostałych elementów. np. Jeżeli bryła ustawiona zostanie w odległości 5cm od prefabrykatu to podczas analizy obrazu i wykryciu rzeczywistego markera to bryła zostanie umiejscowiona na ekranie w tej samej odległości.
 \subsection{Napotkane problemy i ograniczenia}
 \paragraph{}
 \begin{enumerate}
