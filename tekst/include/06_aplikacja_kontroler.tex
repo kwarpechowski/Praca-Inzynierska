@@ -22,7 +22,7 @@ Przykładowa wizualizacja kontrolera
 
 \subsection{Przyciski}
 \paragraph{}
-Każdy przycisk może zostać skonfigurowany poprez ustawienie tekstu. Dodatkowo można zablokować przycisk podczas gdy nie jest on potrzebny w danym czasie. 
+Każdy przycisk może zostać skonfigurowany poprzez ustawienie tekstu. Dodatkowo można zablokować przycisk podczas gdy nie jest on potrzebny w danym czasie. 
 Jednym z główny założeń architektonicznych był rozdzielenie warstwy widoku od logiki biznesowej. Ustalono, że stworzenie nowego przycisku odbywać się będzie wymagało tylko dodania definicji w warstwie widoku (plik layout w formacie XML).
 
 \begin{lstlisting}[language=XML]
@@ -54,7 +54,7 @@ Dla ułatwienia dalszego rozwoju aplikacji postanowiono stworzyć nowy atrybut. 
 }
 
 \paragraph{}
-W konstuktorze poza domyślnymi wywołaniami klasy bazowej Button zapisywana jest wartość atrybutu name do zmiennej o tej nazwie oraz następuje wstępna konfiguracja przycisku.
+W konstruktorze poza domyślnymi wywołaniami klasy bazowej Button zapisywana jest wartość atrybutu name do zmiennej o tej nazwie oraz następuje wstępna konfiguracja przycisku.
 
 \begin{lstlisting}[language=Java]
 private static HashMap<String, CustomButton> buttons = new HashMap<String, CustomButton>();
@@ -84,7 +84,7 @@ private void setUp() {
 
 \subsection{Użycie styli}
 \paragraph{}
-Dodatkowym wymaganiem było umożliwienie szybkiej zmiany wyglądu przycisków w trakcie działania aplikacji. Użycie natywnych styli niestety nie jest możliwe bez ponownego renderowania widoku. Aby zaoszczędzić czas i moc obliczeniową postanowiono, iż zostatnie użyta technologia zmiany tła za pomocą metody backgroundResource. Różne wyglądy przycisku mogą być definiowane jako selectory (zewnętrzne pliki xml w katalogu drawable). Ważne, by plik był odpowiednio nazwany, gdyż po nazwie następuje wyszukiwanie schematu podczas zmiany wyglądu.
+Dodatkowym wymaganiem było umożliwienie szybkiej zmiany wyglądu przycisków w trakcie działania aplikacji. Użycie natywnych styli niestety nie jest możliwe bez ponownego renderowania widoku. Aby zaoszczędzić czas i moc obliczeniową postanowiono, iż zostatnie użyta technologia zmiany tła za pomocą metody backgroundResource. Różne wyglądy przycisku mogą być definiowane jako selektory (zewnętrzne pliki xml w katalogu drawable). Ważne, by plik był odpowiednio nazwany, gdyż po nazwie następuje wyszukiwanie schematu podczas zmiany wyglądu.
 
 \begin{lstlisting}[language=Xml]
 <?xml version="1.0" encoding="utf-8"?>
@@ -115,7 +115,7 @@ Dodatkowym wymaganiem było umożliwienie szybkiej zmiany wyglądu przycisków w
     Przykład zdefiniowanego tła
 }
 \paragraph{}
-Wymaganiem była jednoczena zmiana wyglądu wszystkich przycisków. Rozwiązano to za pomocą metody statycznej, która iteruje po wszystkich przyciskach i wywołuje metdę backgroundResource.
+Wymaganiem była jednoczesna zmiana wyglądu wszystkich przycisków. Rozwiązano to za pomocą metody statycznej, która iteruje po wszystkich przyciskach i wywołuje metdę backgroundResource.
 
 
 \begin{lstlisting}[language=Java]

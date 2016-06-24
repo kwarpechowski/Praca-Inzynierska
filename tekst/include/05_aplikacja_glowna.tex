@@ -1,9 +1,7 @@
 \newpage
 \section{Aplikacja główna}
 \paragraph{}
-Glownym zalozeniem aplikacji w Unity jest stworzenie wirtualnego świata składającego się z wizualizacji dwoch scian oraz elementow znajdujacych sie na nich. Po wyznaczonych elementach poruszać się beda aktorzy, czyli postacie gry.
-
-{\color{red}tutaj będą makiety}
+Głównym założeniem aplikacji w Unity jest stworzenie wirtualnego świata składającego się z wizualizacji dwóch ścian oraz elementów znajdujących się na nich. Po wyznaczonych elementach poruszać się będą aktorzy, czyli postacie gry.
 
 \subsection{Świat gry}
 \paragraph{}
@@ -51,7 +49,7 @@ public void SendInfo() {
 
 \subsection{Prefabrykaty}
 \paragraph{}
-W Unity możliwe jest używanie prefabrykatów (Prefabs \footnote{http://docs.unity3d.com/Manual/Prefabs.html}). Są obiekty lub grupy obiektów, które służą do wielokrotnego wykorzystywania. W Projekcie założono, że wszystkie reużwalne komponety (dziedziczone pomiędzy scenami) będą prefabrykatami.
+W Unity możliwe jest używanie prefabrykatów (Prefabs \footnote{http://docs.unity3d.com/Manual/Prefabs.html}). Są obiekty lub grupy obiektów, które służą do wielokrotnego wykorzystywania. W Projekcie założono, że wszystkie reużwalne komponenty (dziedziczone pomiędzy scenami) będą prefabrykatami.
 
 Dodatkowo aktorzy gry (generowane dynamicznie) są również prefabrykatami. Instancje aktora są tworzone podczas działania aplikacji.
 
@@ -59,7 +57,7 @@ Dodatkowo aktorzy gry (generowane dynamicznie) są również prefabrykatami. Ins
 \paragraph{}
 Ważnym elementem gry są wirtualne kamery. To z nich renderowane jest ujęcie, czyli obraz gry. W projekcie zastosowano dwie kamery. Podczas konfiguracji uruchomieniowej należy ustawić by każda z kamer była wyświetlana na oddzielnym źródle obrazu (monitor, projektor). Dzięki temu projekt można uruchomić na dwóch prostopadłych ścianach.
 \paragraph{}
-Jako tło sceny wybrano jednolity kolor czarny, ponieważ ten kolor nie jest prezentowany podczas projekcji. Światłó z projektora jest w tym miejscu znikome, wręcz niewidoczne. Stosując taki prosty zabieg można łączyć elementy rzeczywiste (np. rura czy inne elementy stałe znajdujące się w labolatorium) z wirtualną rzeczywistością.
+Jako tło sceny wybrano jednolity kolor czarny, ponieważ ten kolor nie jest prezentowany podczas projekcji. Światło z projektora jest w tym miejscu znikome, wręcz niewidoczne. Stosując taki prosty zabieg można łączyć elementy rzeczywiste (np. rura czy inne elementy stałe znajdujące się w laboratorium) z wirtualną rzeczywistością.
 
 \begin{center}
 \includegraphics[width=0.9\textwidth]{images/kamera1.png}
@@ -71,7 +69,7 @@ Ujęcie wirtualnych kamer
 \end{center}
 
 \paragraph{}
-Środowisko Unity domyślnie nie ma włączonej opcji wspierania wielu kamer jednocześnie. Do opisywanego prefakbrykatu należy dodać abstrakcyjny GameObject z poniższym prostym skryptem, który przy uruchomieniu skopilowanej gry sprawdza dostępność sprzętową ekranów.
+Środowisko Unity domyślnie nie ma włączonej opcji wspierania wielu kamer jednocześnie. Do opisywanego prefakbrykatu należy dodać abstrakcyjny GameObject z poniższym prostym skryptem, który przy uruchomieniu skompilowanej gry sprawdza dostępność sprzętową ekranów.
 
 \begin{lstlisting}[language=CSharp]
 using UnityEngine;
@@ -94,16 +92,16 @@ public class DisplayScript : MonoBehaviour
 }
 
 \paragraph{}
-Podczas testów uruchomieniowych przy dwóch kamerach występował problem z wydajnością karty graficznej. Zwłaszcza gdy do komputera podłączano dwa zewnętrzne ekrany po złączach cyfrowych (np. HDMI, DisplayPort, DVI). Finalnie problem rozwiązano wydajniejszym komputerem, jednakże pośredniom rozwiązaniem było użycie portu VGA, który jest mniej obciążający dla karty graficznej.
+Podczas testów uruchomieniowych przy dwóch kamerach występował problem z wydajnością karty graficznej. Zwłaszcza gdy do komputera podłączano dwa zewnętrzne ekrany po złączach cyfrowych (np. HDMI, DisplayPort, DVI). Finalnie problem rozwiązano wydajniejszym komputerem, jednakże pośrednim rozwiązaniem było użycie portu VGA, który jest mniej obciążający dla karty graficznej.
 
 \subsubsection{Światło}
 \paragraph{}
-Kolejny prefabrykat stworzono by zachować spójność w oświetleniu trójwymiarowej sceny. Służy on do zgrupowania wszystkich źródeł wirtualnego światała. Jest to element bez zwwartej logiki biznesowej. Stworzono go w celu zachowania porządku w projekcie.
+Kolejny prefabrykat stworzono by zachować spójność w oświetleniu trójwymiarowej sceny. Służy on do zgrupowania wszystkich źródeł wirtualnego światła. Jest to element bez zawartej logiki biznesowej. Stworzono go w celu zachowania porządku w projekcie.
 
 
 \subsection{SocketIO}
 \paragraph{}
-Jest to prefabrykat dostarczony jako kompotent implementacji Socket.io w bibliotece Asset Store. Jest on udostępniony na licencji Open Source.  Musi być on umiejscowiony w każdej scenie, która korzysta z połączenia sieciowego. Umiejscowienie jest dowolne, gdyż jest to prefabrykat abstrakcyjny (nie posiada graficznej reprezentacji w trójwymiarowym modelu). W prefabrykacie wywołano skrpyt SocketIOComponent, który odpowiada za inicjalizacje komunukacji sieciowej.
+Jest to prefabrykat dostarczony jako komponent implementacji Socket.io w bibliotece Asset Store. Jest on udostępniony na licencji Open Source.  Musi być on umiejscowiony w każdej scenie, która korzysta z połączenia sieciowego. Umiejscowienie jest dowolne, gdyż jest to prefabrykat abstrakcyjny (nie posiada graficznej reprezentacji w trójwymiarowym modelu). W prefabrykacie wywołano skrpyt SocketIOComponent, który odpowiada za inicjalizacje komunukacji sieciowej.
 
 \subsubsection{Network}
 \paragraph{}
