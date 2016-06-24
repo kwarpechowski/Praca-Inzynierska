@@ -59,27 +59,25 @@ W konstruktorze poza domyślnymi wywołaniami klasy bazowej Button zapisywana je
 \begin{lstlisting}[language=Java]
 private static HashMap<String, CustomButton> buttons = new HashMap<String, CustomButton>();
 
-private void setUp() {
-    buttons.put(getName(), this);
-    setText(getName());
+ private void setUp() {
+        buttons.put(getName(), this);
+        setText(getName());
 
-    setOnClickListener(new View.OnClickListener(){
-        @Override
-        public void onClick(View v) {
-            try {
-                new Runner().execute(getName());
-            } catch (Exception e) {
-                Toast.makeText(getContext(), R.string.SendError, Toast.LENGTH_SHORT).show();
+        setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                ServerCommunication.click_button(getName());
             }
-        }
-    });
-}
+        });
+
+    }
 \end{lstlisting}
 \captionof{lstlisting}{
     Konfiguracja w klasie CustomButton
 }
+
 \paragraph{}
-{\color{red}opisac co tu sie dzieje}
+Dzięki metodzie setUp konfigurowany jest przycisk. Ustawiana jest nazwa przycisku (zmiana możliwa za pomocą aplikacji Unity), przycisk jest zapisywany do listy wszystkich dostępych przycisków (dzięki temu konfiguracja ilośći przycisków odbywa się tylko w jednym miejscu - na poziomie warstwy widoku) oraz uruchamiany jest listener. Przy każdym kliknięciu wywułuje się metoda w singletonie SerwerCommunication.
 
 
 \subsection{Użycie styli}
@@ -88,7 +86,9 @@ Dodatkowym wymaganiem było umożliwienie szybkiej zmiany wyglądu przycisków w
 
 \begin{lstlisting}[language=Xml]
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<selector 
+xmlns:android="http://schemas.android.com/apk/res/android
+">
     <item android:state_pressed="true" >
         <shape>
             <gradient
@@ -102,8 +102,9 @@ Dodatkowym wymaganiem było umożliwienie szybkiej zmiany wyglądu przycisków w
         </shape>
     </item>
     <item>
-        <shape xmlns:android="http://schemas.android.com/apk/res/android"
-            android:shape="rectangle">
+        <shape 
+xmlns:android="http://schemas.android.com/apk/res/android"
+        android:shape="rectangle">
             <gradient android:startColor="#FFFFFF"
                 android:endColor="#999"
                 android:angle="270" />
@@ -138,11 +139,81 @@ CustomButton.setLayout(R.drawable.dark);
 }
 
 
-
-\subsection{Informacje tekstowe}
-\paragraph{}
-Pola tekstowe mogą mieć ustawioną dowolną treść w dowolnym czasie.
-
 \subsection{Komunikacja sieciowa}
+
+\begin{lstlisting}[language=Java]
+public  class ServerCommunication {
+    private static Socket mSocket = null;
+    private static AppCompatActivity activity = null;
+
+    public static void start(AppCompatActivity mainActivity) {
+        activity = mainActivity;
+        ServerCommunication.start();
+    }
+
+    private static void start() {
+        if(mSocket == null) {
+            Log.i("socket", "createServer");
+            try {
+                mSocket = IO.socket("http://192.168.0.12:5555");
+                mSocket.connect();
+                ServerCommunication.listenDisableButton();
+                ServerCommunication.listenEnableButton();
+                ServerCommunication.listenSetText();
+                mSocket.emit("register_controller");
+            } catch (URISyntaxException e) {
+            }
+        }
+    }
+
+
+    public static void click_button(String buttonName) {
+        ServerCommunication.start();
+        mSocket.emit("click", buttonName);
+    }
+
+    public static void listenDisableButton() {
+        ServerCommunication.start();
+        mSocket.on("disable_button", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                Log.i("socket", "disable_button");
+                try {
+                    JSONObject mainObject = new JSONObject(args[0].toString());
+                    final String name = mainObject.getString("name");
+                    activity.runOnUiThread(new Runnable() {
+                       public void run() {
+                           CustomButton.disableButton(name);
+                       }
+                   });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+...
+\end{lstlisting}
+\captionof{lstlisting}{
+   Komunikacja sieciowa
+}
 \paragraph{}
-{\color{red}tutaj opisać implementacje warstwy komunikacyjnej}
+Klasa ServerCommunication to prosta implementacja biblioteki Socket.IO.  Posiada ona metody statyczne, służące do nasłuchiwania akcji przychodzących z serwera lub emitowania komunikatów do aplikacji Unity. Każde wywołanie sprawdza na początku czy połączenie socket jest aktywne, jeśli nie, to tworzone jest nowe połączenie i uruchomiane domyślne nasłuchiwania na akcje. 
+Ważne jest to, iż wszystkie nasłuchiwania tworzone są w nowych wątkach i wykonanie akcji aktualizacji graficznego interfejsu bezpośrednio nie jest możliwe. Należy wtedy utworzyć nowy obiekt klasy Runnable i uruchomić go za pomocą metody activity.runOnUiThread. Do obsługi bardziej złożonych komunikatów JSON używana jest standardowa klasa Javy - JSONObject.
+\begin{lstlisting}[language=Java]
+...
+} catch (Exception e) {
+    Context context = activity.getApplicationContext();
+    CharSequence text = "Communication error";
+    int duration = Toast.LENGTH_SHORT;
+
+    Toast toast = Toast.makeText(context, text, duration);
+    toast.show();
+}
+...
+\end{lstlisting}
+\captionof{lstlisting}{
+   Przykład obsługi wyjątków
+}
+\paragraph{}
+Jako graficzną reprezentację potencjalnych błędów (wyjątków w kodzie) można zastosować komunikaty pojawiające się poprzez zastosowanie klasy Toast dostępnej w Android SDK.

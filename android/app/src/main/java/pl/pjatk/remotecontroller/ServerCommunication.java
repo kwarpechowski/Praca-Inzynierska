@@ -1,7 +1,9 @@
 package pl.pjatk.remotecontroller;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
@@ -44,6 +46,7 @@ public  class ServerCommunication {
     }
 
     public static void listenDisableButton() {
+        ServerCommunication.start();
         mSocket.on("disable_button", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
@@ -57,7 +60,12 @@ public  class ServerCommunication {
                        }
                    });
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Context context = activity.getApplicationContext();
+                    CharSequence text = "Communication error";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
                 }
             }
         });
