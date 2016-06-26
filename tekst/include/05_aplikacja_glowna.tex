@@ -5,7 +5,7 @@ Głównym założeniem aplikacji w Unity jest stworzenie wirtualnego świata sk�
 
 \subsection{Świat gry}
 \paragraph{}
-{\color{red}Opisać}
+Na wizualizacji dwóch ścian znajdują się przeszkody, czyli wirtualne platformy zbudowane z prostopadłościanów. Część z nich nakłada się na rzeczywiste elementy - na przykład rura ciepłownicza. Na platformach się elementy aktywne, które reaguję na interakcje z aktorem. Aby pokonać przeszkodę, będzie musiał on wykonać jedną z dostępnych w danej chwili akcji (np. rozbicie szklanego elementu czy też wykopanie).
 
 \begin{center}
 \includegraphics[width=1\textwidth]{images/swiatgry.png}
@@ -18,22 +18,26 @@ Model w środowisku Unity
 
 \subsection{Aktorzy}
 \paragraph{}
-{\color{red}Opisać}
+Aktor to element interaktywny w grze. Podczas jej inicjalizacji aktor (prefabrykat z gotowym trójwymiarowym modelem) zaczyna się poruszać w jednym kierunku. Zadaniem gracza (za pomocą kontrolera) jest nadanie jednej z wielu umiejętności, tak aby aktor mógł przejść z miejsca startu do końca planszy.
 
+Zaimplementowane możliwośći aktora to:
 
-\begin{center}
+\begin{itemize}
+	\item wykopanie elementu
+	\item spadochron - swobodne spadanie
+	\item rozbicie za pomocą kilofa elementu
+	\item umiejętność skakania
+	\item umiejętność zatrzymania się i ponownego swobodnego przechodzenia
+	\item reset - powrót do pozycji startowej
+\end{itemize}
 
- \begin{tabular}{|c|c|}
- \hline  
-  &   \\
-  \hline   
-  &   \\
-  \hline   
-\end{tabular}
-\captionof{table}{Właściwości aktora}
-\paragraph{}
-{\color{red}Opisać}
-\end{center}
+\begin{lstlisting}[language=CSharp]
+public static Vector3 lemmingPosition = new Vector3 (1205.9F, 103.4F, -4996.9F);
+private static Vector3 jumpSize = new Vector3 (0, 200F, 0F);
+\end{lstlisting}
+\captionof{lstlisting}{
+	Konfiguracja pozycji początkowej i siły skoku
+}
 
 \begin{lstlisting}[language=CSharp]
 public void SendInfo() {
@@ -44,8 +48,38 @@ public void SendInfo() {
 }
 \end{lstlisting}
 \captionof{lstlisting}{
-	Do Poprawy
+	Przykład wysyłania komunikatów do serwera
 }
+
+\paragraph{}
+Podczas tworzenia nowej instancji klasy Aktora zapisywana ona jest do listy statycznej wszystkich dostępnych na daną chwilę obiektów (podczas usunięcia z planszy element również znika z listy). Ma to na celu możliwość implementacji w kontrolerze możliwości wyboru aktywnego aktora.
+
+\begin{lstlisting}[language=CSharp]
+public static void GetNext() {
+Debug.Log ("get next");
+if (Lemming2.activeEl == null) {
+	Lemming2.activeEl = Lemming2.lista [0];
+} else {
+	int i = Lemming2.lista.IndexOf(Lemming2.activeEl);
+	if (i < Lemming2.lista.Count - 1) {
+		Lemming2.activeEl = Lemming2.lista [i + 1];
+	} else {
+		Lemming2.activeEl = Lemming2.lista [0];
+	}
+}
+
+Lemming2.activeEl.SendInfo ();
+}
+\end{lstlisting}
+\captionof{lstlisting}{
+	Wybór aktywnego aktora.
+}
+
+\paragraph{}
+Każdy z aktorów posiada detekcję kolizji z innymi elementami za pomocą nadpisania wbudowanych metod w środowisko Unity. Są to: OnTriggerEnter, OnTriggerExit, OnCollisionEnter, OnCollisionExit. Kolizja od triggera, różni się tym, iż metody OnCollsion współpracują tylko z elementami, które posiadają zaimplementowaną fizykę (np. spadający element platformy), natomiast trigger to można być dowolny element, nie posiadający ,,ciała'' (np. ściana).
+
+\paragraph{}
+W celu uproszczenia detekcji kolizji z innymi elementami wprowadzono czarne prostopadłościany emitujące rzeczywiste ściany. Są one koloru czarnego, dzięki temu projektor emitujący obraz w tych miejscach nie wyśle światła widzialnego. Natomiast dzięki takiemu zabiegowi możliwe jest zamodelowanie w środowisku unity kolizji z rzeczywistymi elementami.
 
 \subsection{Prefabrykaty}
 \paragraph{}
@@ -182,14 +216,10 @@ public void SetText(ButtonEnum btn, string text) {
 	Przykładowe zapytanie do gra - kontroler
 }
 
-
-
-
-{\color{red}Dokończyć opisywać logikę, network manager itd}.
-
 \subsubsection{Replikator}
 \paragraph{}
-{\color{red}Opisać replikator}
+Replikator to komonent do tworzenia nowych instancji aktora. Ma na celu cykliczne dodawanie kolejnych obiektów aktora w miejsce startowe określone w jego klasie. Dodatkowo uruchamia on nasłuchiwanie akcji przycisków płynących od kontrolera i zamienia je na wywołania metod na obecnie wybranym elemencie - aktywnym aktorze.
+
 \begin{center}
 \includegraphics[width=0.7\textwidth]{images/replikator.png}
 \captionof{figure}{
@@ -246,13 +276,6 @@ void Kilof () {
 \captionof{lstlisting}{
 	Implementacja akcji
 }
-
-
-{\color{red}Opisać pozostałe prefabrykaty}
-
-\subsection{Logika biznesowa}
-\paragraph{}
-{\color{red}Opisać}
 
 \subsection{Serwer komunikacyjny}
 \paragraph{}
