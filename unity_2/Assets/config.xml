@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<levels>
+	<level name="lvl0" nextLevel="lvl1" fullName="Poziom zerowy">
+		<opponents>
+			<opponent>
+				<health>1</health>
+				<x>100</x>
+				<y>200</y>
+				<z>-100</z>
+				<path>
+					<step x="100" y="200" z="-100" />
+					<step x="100" y="500" z="100" />
+					<step x="100" y="200" z="-100" />
+					<step x="100" y="400" z="-100" />
+					<step x="200" y="400" z="-100" />
+				</path>
+			</opponent>
+			<opponent>
+				<health>1</health>
+				<x>-100</x>
+				<y>200</y>
+				<z>-300</z>
+				<path>
+					<step x="-100" y="200" z="-300" />
+					<step x="100" y="200" z="-300" />
+					<step x="-300" y="200" z="-300" />
+					<step x="-100" y="200" z="-300" />
+				</path>
+			</opponent>
+			
+			<opponent>
+				<health>1</health>
+				<x>-200</x>
+				<y>200</y>
+				<z>-250</z>
+				<path>
+					<step x="-200" y="200" z="-250" />
+					<step x="200" y="200" z="-250" />
+					<step x="-200" y="200" z="-250" />
+					<step x="200" y="200" z="-250" />
+				</path>
+			</opponent>
+			<opponent>
+				<health>1</health>
+				<x>250</x>
+				<y>400</y>
+				<z>200</z>
+				<path>
+					<step x="1" y="2" z="4" />
+					<step x="4" y="2" z="4" />
+				</path>
+			</opponent>
+		</opponents>
+	</level>
+	<level name="lvl1" fullName="Poziom pierwszy">
+		<opponents>
+			<opponent>
+				<health>1</health>
+				<x>100</x>
+				<y>200</y>
+				<z>-100</z>
+				<path>
+					<step x="100" y="200" z="-100" />
+					<step x="100" y="500" z="100" />
+					<step x="100" y="200" z="-100" />
+					<step x="100" y="400" z="-100" />
+					<step x="200" y="400" z="-100" />
+				</path>
+			</opponent>
+			<opponent>
+				<health>1</health>
+				<x>-100</x>
+				<y>200</y>
+				<z>-300</z>
+				<path>
+					<step x="-100" y="200" z="-300" />
+					<step x="100" y="200" z="-300" />
+					<step x="-300" y="200" z="-300" />
+					<step x="-100" y="200" z="-300" />
+				</path>
+			</opponent>
+		</opponents>
+	</level>
+	<level name="lvl2">dwa</level>
+</levels>

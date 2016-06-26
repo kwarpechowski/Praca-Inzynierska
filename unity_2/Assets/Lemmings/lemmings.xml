@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<levels>
+	<level name="lvl0" nextLevel="lvl1" fullName="Poziom zerowy">
+		<lemmings>
+			<lemming>
+				<health>100</health>
+			</lemming>
+			<lemming>
+				<health>200</health>
+			</lemming>
+			<lemming>
+				<health>300</health>
+			</lemming>
+		</lemmings>
+	</level>
+</levels>
