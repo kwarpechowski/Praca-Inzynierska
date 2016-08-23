@@ -34,20 +34,20 @@ Dodatkowo silnik ten wspiera import modeli trójwymiarowych w bardzo dużej ilo�
 Środowisko Unity wspiera obsługę skryptów (animacje oraz logika biznesowa) w kilku językach programowania: C\#, UnityScript (zmodyfikowana wersja JavaScript)  oraz w przeszłości Boo. Podjęto decyzję, by w projekcie użyć język C\#, gdyż jest najbardziej stabilny, posiada najbardziej rozbudowaną dokumentację oraz jest to najpopularniejszy język w specjalistycznej literaturze. Dodatkowym udogodnieniem  jest to, iż  język posiada wiele wbudowanych klas (np. do obsługi połączeń TCP) oraz niezliczoną ilość zewnętrznych bibliotek.
 \subsubsection{Unity IDE}
 \paragraph{}
-Środowisko Unity jest multiplatformowe. Aplikacje można używać na dowolnym sytemie operacyjnym. Jednakże edycja skryptów odbywa się za pomocą zewnętrznego narzędzia. W systemie Mac OS X jest to MonoDevelop, natomiast w systemie Windows jest to VisualStudio w wersji Community. Opisywana aplikacja początkowo była tworzona na systemie Mac OS X, jednakże kołopoty ze środowiskiem MonoDevelop spowodowały decyzje o przeniesieniu środowiska na system Windows. Subiektywnie mogę stwierdzić, że stabilność oraz komfort pracy jest dużo lepszy w systemie Windows.
+Środowisko Unity jest multiplatformowe. Aplikacje można używać na dowolnym sytemie operacyjnym. Jednakże edycja skryptów odbywa się za pomocą zewnętrznego narzędzia. W systemie Mac OS X jest to MonoDevelop, natomiast w systemie Windows jest to VisualStudio (zarówno w wersji darmowej Community jak i rozwiązaniach płatnych). Opisywana aplikacja początkowo była tworzona na systemie Mac OS X, jednakże kołopoty ze środowiskiem MonoDevelop spowodowały decyzje o przeniesieniu środowiska na system Windows. Subiektywnie mogę stwierdzić, że stabilność oraz komfort pracy jest dużo lepszy w systemie Windows.
 Dodatkową alternatywą dla MonoDevelop może okazać się Visual Studio Code. Jest to prosty multiplatformowy edytor posiadający obsługę języka C\# .
 
 \subsubsection{Licencja i koszty}
 \paragraph{}
 Unity jest zamkniętym, licencjonowanym oprogramowaniem. Darmowa wersja (Personal Editon) pozwala na nielimitowane użycie, jednakże jest to okrojona edycja. Szersze informacje o ograniczeniach wersji Personal zawarte są w kolejnych rozdziałach. Licencja pozwala na komercyjne użycie przy limicie zarobków na poziomie stu tysięcy dolarów.
-Komercyjna wersja (Professional Edition) jest płatna w modelu subskrypcyjnym (75 dolarów za miesiąc)\footnote{https://store.unity3d.com/subscribe}.
+Komercyjna wersja (Professional Edition) jest płatna w modelu subskrypcyjnym (75 dolarów za miesiąc)\cite{unity1}.
 Na potrzeby opisywanego projektu zastosowano Unity w wersji Personal Edition.
 
 \subsection{Android}
 \paragraph{}
-Naturalnym wyborem technologii przy tworzeniu aplikacji na urządzenie sterujące byłoby Unity, gdyż te środowisko pozwala na kompilacje kodu na urządzenia mobilne(systemy: iOS, Android, Windows Phone, Tizen itp\footnote{https://unity3d.com/unity/multiplatform}). Jednakże Unity w wersji Personal Edition nie pozwala na uruchomienie warstwy sieciowej na urządzeniach mobilnych.
+Naturalnym wyborem technologii przy tworzeniu aplikacji na urządzenie sterujące byłoby Unity, gdyż te środowisko pozwala na kompilacje kodu na urządzenia mobilne(systemy: iOS, Android, Windows Phone, Tizen itp\cite{unity2}). Jednakże Unity w wersji Personal Edition nie pozwala na uruchomienie warstwy sieciowej na urządzeniach mobilnych.
 \paragraph{}
-Na potrzeby implementacji przykładowego urządzenia sterującego wybrano platformę Android, gdyż ma ona największy udział w rynku.\footnote{https://www.netmarketshare.com/operating-system-market-share.aspx?qprid=10} Proces tworzenia aplikacji na tą platformę przebiega w języku Java.
+Na potrzeby implementacji przykładowego urządzenia sterującego wybrano platformę Android, gdyż ma ona największy udział w rynku.\cite{market} Proces tworzenia aplikacji na tą platformę przebiega w języku Java.
 
 \subsection{Komunikacja sieciowa}
 \paragraph{}
@@ -63,5 +63,5 @@ Komunikacja za pomocą HTTP (protokoły komunikacyjne takie jak np. SOAP, REST) 
 \subsubsection{WebSocket}
 \paragraph{}
 Zdecydowano, że najlepszym rozwiązaniem będzie użycie protokołu komunikacyjnego TCP, a dokładniej technologii WebSocket, która pozwala na dwustronną komunikację na zasadzie klient-serwer. Jest to protokół połączeniowy.
-W celu ułatwienia implementacji wybrano bibliotekę socket.io\footnote{http://socket.io/}. Główną jej zaletą jest możliwość nasłuchiwania i emitowania danych do wszystkich odbiorców z poszczególnej grupy. Pozwala to na stworzenie platformy, która będzie mogła w przyszłości obsługiwać wiele instancji gry lub kilka kontrolerów jednocześnie. Dodatkowym udogodnieniem jest to, iż popularność tej biblioteki sprawiła, że posiada ona wiele implementacji w różnych językach programowania.
+W celu ułatwienia implementacji wybrano bibliotekę socket.io\cite{socket}. Główną jej zaletą jest możliwość nasłuchiwania i emitowania danych do wszystkich odbiorców z poszczególnej grupy. Pozwala to na stworzenie platformy, która będzie mogła w przyszłości obsługiwać wiele instancji gry lub kilka kontrolerów jednocześnie. Dodatkowym udogodnieniem jest to, iż popularność tej biblioteki sprawiła, że posiada ona wiele implementacji w różnych językach programowania.
 Jako Middleware - pośrednik pomiędzy grą, a kontrolerem wybrano technologię Node.js. Zbudowano lekki szkielet, obsługujący połączenia wielokierunkowe. Dzięki wydzieleniu Middleware żadna z instancji gry lub kontrolera nie pełni roli serwera co powoduje wzrost wydajności danej platformy. Dodatkowo w przyszłości można rozbudować serwer o możliwość przechowywania zapisanego stanu gry lub np. ilości punktów zebranych przez użytkownika.

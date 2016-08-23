@@ -40,7 +40,7 @@ Jednym z główny założeń architektonicznych był rozdzielenie warstwy widoku
 Na potrzeby realizacji powyższego założenia stworzono klasę CustomButton, która jest rozszerzeniem (dziedziczy bezpośrednio) klasy Button znajdującej się w pakiecie  android.widget.
 \paragraph{}
 Każdy z przycisków musi posiadać własną nazwę kodową, gdyż serwer podczas komunikacji sieciowej identyfikuje przycisk poprzez unikalny klucz. Domyślnie w środowisku Android każdy komponent wizualny może posiadać swoje Id, jednakże jest one reprezentowane poprzez liczbę typu Integer.
-Dla ułatwienia dalszego rozwoju aplikacji postanowiono stworzyć nowy atrybut. Ich definicje umieszczas ię w formacie XML w pliku attrs.xml
+Dla ułatwienia dalszego rozwoju aplikacji postanowiono stworzyć nowy atrybut. Ich definicje umieszczas ię w formacie XML w pliku attrs.xml.
 
 \begin{lstlisting}[language=XML]
 <resources>
@@ -54,7 +54,7 @@ Dla ułatwienia dalszego rozwoju aplikacji postanowiono stworzyć nowy atrybut. 
 }
 
 \paragraph{}
-W konstruktorze poza domyślnymi wywołaniami klasy bazowej Button zapisywana jest wartość atrybutu name do zmiennej o tej nazwie oraz następuje wstępna konfiguracja przycisku.
+W konstruktorze poza domyślnymi wywołaniami klasy bazowej \texttt{Button} zapisywana jest wartość atrybutu name do zmiennej o tej nazwie oraz następuje wstępna konfiguracja przycisku.
 
 \begin{lstlisting}[language=Java]
 private static HashMap<String, CustomButton> buttons = new HashMap<String, CustomButton>();
@@ -77,12 +77,12 @@ private static HashMap<String, CustomButton> buttons = new HashMap<String, Custo
 }
 
 \paragraph{}
-Dzięki metodzie setUp konfigurowany jest przycisk. Ustawiana jest nazwa przycisku (zmiana możliwa za pomocą aplikacji Unity), przycisk jest zapisywany do listy wszystkich dostępych przycisków (dzięki temu konfiguracja ilośći przycisków odbywa się tylko w jednym miejscu - na poziomie warstwy widoku) oraz uruchamiany jest listener. Przy każdym kliknięciu wywułuje się metoda w singletonie SerwerCommunication.
+Dzięki metodzie \texttt{setUp} konfigurowany jest przycisk. Ustawiana jest nazwa przycisku (zmiana możliwa za pomocą aplikacji Unity), przycisk jest zapisywany do listy wszystkich dostępych przycisków (dzięki temu konfiguracja ilośći przycisków odbywa się tylko w jednym miejscu - na poziomie warstwy widoku) oraz uruchamiany jest listener. Przy każdym kliknięciu wywułuje się metoda w singletonie \texttt{SerwerCommunication}.
 
 
 \subsection{Użycie styli}
 \paragraph{}
-Dodatkowym wymaganiem było umożliwienie szybkiej zmiany wyglądu przycisków w trakcie działania aplikacji. Użycie natywnych styli niestety nie jest możliwe bez ponownego renderowania widoku. Aby zaoszczędzić czas i moc obliczeniową postanowiono, iż zostatnie użyta technologia zmiany tła za pomocą metody backgroundResource. Różne wyglądy przycisku mogą być definiowane jako selektory (zewnętrzne pliki xml w katalogu drawable). Ważne, by plik był odpowiednio nazwany, gdyż po nazwie następuje wyszukiwanie schematu podczas zmiany wyglądu.
+Dodatkowym wymaganiem było umożliwienie szybkiej zmiany wyglądu przycisków w trakcie działania aplikacji. Użycie natywnych styli niestety nie jest możliwe bez ponownego renderowania widoku. Aby zaoszczędzić czas i moc obliczeniową postanowiono, iż zostatnie użyta technologia zmiany tła za pomocą metody \texttt{backgroundResource}. Różne wyglądy przycisku mogą być definiowane jako selektory (zewnętrzne pliki xml w katalogu drawable). Ważne, by plik był odpowiednio nazwany, gdyż po nazwie następuje wyszukiwanie schematu podczas zmiany wyglądu.
 
 \begin{lstlisting}[language=Xml]
 <?xml version="1.0" encoding="utf-8"?>
@@ -116,7 +116,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
     Przykład zdefiniowanego tła
 }
 \paragraph{}
-Wymaganiem była jednoczesna zmiana wyglądu wszystkich przycisków. Rozwiązano to za pomocą metody statycznej, która iteruje po wszystkich przyciskach i wywołuje metdę backgroundResource.
+Wymaganiem była jednoczesna zmiana wyglądu wszystkich przycisków. Rozwiązano to za pomocą metody statycznej, która iteruje po wszystkich przyciskach i wywołuje metdę \texttt{backgroundResource}.
 
 
 \begin{lstlisting}[language=Java]
@@ -135,9 +135,8 @@ Wymaganiem była jednoczesna zmiana wyglądu wszystkich przycisków. Rozwiązano
 CustomButton.setLayout(R.drawable.dark);
 \end{lstlisting}
 \captionof{lstlisting}{
-   Przykład wywołania zmiany tła przycisków.
+   Przykład wywołania zmiany tła przycisków
 }
-
 
 \subsection{Komunikacja sieciowa}
 
@@ -198,8 +197,8 @@ public  class ServerCommunication {
    Komunikacja sieciowa
 }
 \paragraph{}
-Klasa ServerCommunication to prosta implementacja biblioteki Socket.IO.  Posiada ona metody statyczne, służące do nasłuchiwania akcji przychodzących z serwera lub emitowania komunikatów do aplikacji Unity. Każde wywołanie sprawdza na początku czy połączenie socket jest aktywne, jeśli nie, to tworzone jest nowe połączenie i uruchomiane domyślne nasłuchiwania na akcje. 
-Ważne jest to, iż wszystkie nasłuchiwania tworzone są w nowych wątkach i wykonanie akcji aktualizacji graficznego interfejsu bezpośrednio nie jest możliwe. Należy wtedy utworzyć nowy obiekt klasy Runnable i uruchomić go za pomocą metody activity.runOnUiThread. Do obsługi bardziej złożonych komunikatów JSON używana jest standardowa klasa Javy - JSONObject.
+Klasa \texttt{ServerCommunication} to prosta implementacja biblioteki Socket.IO.  Posiada ona metody statyczne, służące do nasłuchiwania akcji przychodzących z serwera lub emitowania komunikatów do aplikacji Unity. Każde wywołanie sprawdza na początku czy połączenie socket jest aktywne, jeśli nie, to tworzone jest nowe połączenie i uruchomiane domyślne nasłuchiwania na akcje. 
+Ważne jest to, iż wszystkie nasłuchiwania tworzone są w nowych wątkach i wykonanie akcji aktualizacji graficznego interfejsu bezpośrednio nie jest możliwe. Należy wtedy utworzyć nowy obiekt klasy Runnable i uruchomić go za pomocą metody \texttt{activity.runOnUiThread}. Do obsługi bardziej złożonych komunikatów JSON używana jest standardowa klasa Javy - \texttt{JSONObject}.
 \begin{lstlisting}[language=Java]
 ...
 } catch (Exception e) {

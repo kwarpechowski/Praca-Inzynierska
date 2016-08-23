@@ -12,9 +12,7 @@ Na wizualizacji dwóch ścian znajdują się przeszkody, czyli wirtualne platfor
 \captionof{figure}{
 Model w środowisku Unity
 }
-\small {źródło: własne }
 \end{center}
-
 
 \subsection{Aktorzy}
 \paragraph{}
@@ -86,12 +84,11 @@ W celu uproszczenia detekcji kolizji z innymi elementami wprowadzono czarne pros
 \captionof{figure}{
 Konfiguracja aktora
 }
-\small {źródło: własne }
 \end{center}
 
 \subsection{Prefabrykaty}
 \paragraph{}
-W Unity możliwe jest używanie prefabrykatów (Prefabs \footnote{http://docs.unity3d.com/Manual/Prefabs.html}). Są obiekty lub grupy obiektów, które służą do wielokrotnego wykorzystywania. W Projekcie założono, że wszystkie reużwalne komponenty (dziedziczone pomiędzy scenami) będą prefabrykatami.
+W Unity możliwe jest używanie prefabrykatów (Prefabs\cite{prefab}). Są obiekty lub grupy obiektów, które służą do wielokrotnego wykorzystywania. W Projekcie założono, że wszystkie reużwalne komponenty (dziedziczone pomiędzy scenami) będą prefabrykatami.
 
 Dodatkowo aktorzy gry (generowane dynamicznie) są również prefabrykatami. Instancje aktora są tworzone podczas działania aplikacji.
 
@@ -107,7 +104,6 @@ Jako tło sceny wybrano jednolity kolor czarny, ponieważ ten kolor nie jest pre
 \captionof{figure}{
 Ujęcie wirtualnych kamer
 }
-\small {źródło: własne }
 \end{center}
 
 \paragraph{}
@@ -143,11 +139,11 @@ Kolejny prefabrykat stworzono by zachować spójność w oświetleniu trójwymia
 
 \subsection{SocketIO}
 \paragraph{}
-Jest to prefabrykat dostarczony jako komponent implementacji Socket.io w bibliotece Asset Store. Jest on udostępniony na licencji Open Source.  Musi być on umiejscowiony w każdej scenie, która korzysta z połączenia sieciowego. Umiejscowienie jest dowolne, gdyż jest to prefabrykat abstrakcyjny (nie posiada graficznej reprezentacji w trójwymiarowym modelu). W prefabrykacie wywołano skrpyt SocketIOComponent, który odpowiada za inicjalizacje komunikacji sieciowej.
+Jest to prefabrykat dostarczony jako komponent implementacji Socket.io w bibliotece Asset Store. Jest on udostępniony na licencji Open Source.  Musi być on umiejscowiony w każdej scenie, która korzysta z połączenia sieciowego. Umiejscowienie jest dowolne, gdyż jest to prefabrykat abstrakcyjny (nie posiada graficznej reprezentacji w trójwymiarowym modelu). W prefabrykacie wywołano skrpyt \texttt{SocketIOComponent}, który odpowiada za inicjalizacje komunikacji sieciowej.
 
 \subsubsection{Network}
 \paragraph{}
-Jest to kolejny prefabrykat abstrakcyjny, który służy do uruchomienia klasy Network odpowiadającej za implementacje metod służących do dwustronnej komunikacji.
+Jest to kolejny prefabrykat abstrakcyjny, który służy do uruchomienia klasy \texttt{Network}odpowiadającej za implementacje metod służących do dwustronnej komunikacji.
 Prefabrykat ten jest nierozerwalnie złączony z SocketIO, gdyż bezpośrednio korzysta z metod dostarczonych przez tą bibliotekę.
 
 
@@ -170,7 +166,7 @@ void Start () {
 \paragraph{}
 Na początku wyszukiwany jest obiekt gry o określonej nazwie, a następnie pobierany komponent, czyli obiekt klasy. Warto pamiętać, ze połączenie inicjalizowane jest już przy uruchomieniu, więc nie ma potrzeby ,,ręcznego'' zestawiania warstwy sieciowej.
 
-Metoda On w klase SocketIOComponent odpowiada za nasłuchiwanie serwera. Jako pierwszy parametr przyjmuje ciąg znaków określający nazwę metody. Natomiast drugi to referencja do metody, która wywoła się podczas wywołania akcji o nazwie wynikającej z pierwszego parametru.
+Metoda On w klase \texttt{SocketIOComponent} odpowiada za nasłuchiwanie serwera. Jako pierwszy parametr przyjmuje ciąg znaków określający nazwę metody. Natomiast drugi to referencja do metody, która wywoła się podczas wywołania akcji o nazwie wynikającej z pierwszego parametru.
 
 Na potrzeby łatwiejszego zarządzania zdarzeniami i uniknięcia błędów w nazwach przycisków stworzono enum, zawierający nazwy obsługiwanych przycisków. Wszystkie metody odpowiadające za komunikację, a zwłaszcza za zarządzanie stanami oraz nazwami przycisków powinny przyjmować w parametrze opisywany atrybut wyliczalny.
 
@@ -191,7 +187,7 @@ namespace AssemblyCSharp
 }
 
 \paragraph{}
-Metoda zarejestrowana pod nazwą ,,open'' wywoła się przy udanym zestawieniu połączenia. Jest to najlepsze miejsce do wstępnej konfiguracji planszy gry oraz przycisków w kontrolerze.
+Metoda zarejestrowana pod nazwą \texttt{open} wywoła się przy udanym zestawieniu połączenia. Jest to najlepsze miejsce do wstępnej konfiguracji planszy gry oraz przycisków w kontrolerze.
 
 \begin{lstlisting}[language=CSharp]
 public void InitGame(SocketIOEvent e)
@@ -207,7 +203,7 @@ public void InitGame(SocketIOEvent e)
 }
 
 \paragraph{}
-Powyższy przykład inicjalizacji pokazuje emitowanie akcji do serwera o nazwie ,,register\_game''. Służy on do zarejestrowania gry na serwerze. Od tego czasu wszystkie akcje z kontrolera (np. wciśnięcie przycisku) będzie emitowane do gry.
+Powyższy przykład inicjalizacji pokazuje emitowanie akcji do serwera o nazwie \texttt{register\_game}. Służy on do zarejestrowania gry na serwerze. Od tego czasu wszystkie akcje z kontrolera (np. wciśnięcie przycisku) będzie emitowane do gry.
 Dodatkowo ukazano wstępną konfigurację przycisków: Uaktywnienie przycisku pierwszego, ustawienie określonej nazwy oraz wyłączenie przycisku drugiego.
 
 \subsubsection{Budowanie zapytania}
@@ -287,7 +283,7 @@ void Kilof () {
 
 \subsection{Serwer komunikacyjny}
 \paragraph{}
-Jako technologię do obsługi połączeń zastosowano NodeJS. Obecnie jedyną zależnością zewnętrzną jest biblioteka Socket.IO \footnote{https://www.npmjs.com/package/socket.io}.
+Jako technologię do obsługi połączeń zastosowano NodeJS. Obecnie jedyną zależnością zewnętrzną jest biblioteka Socket.IO \cite{socket}.
 Jako manager zależności wybrano NPM. Jest on domyślnie dołączony do oprogramowania NodeJS. Aby pobrać zależności należy uruchomić polecenie ,,npm install'' w katalogu projektu.
 
 \begin{lstlisting}[language=CSharp]
