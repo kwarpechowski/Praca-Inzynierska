@@ -21,12 +21,12 @@ Aktor to element interaktywny w grze. Podczas jej inicjalizacji aktor (prefabryk
 Zaimplementowane możliwości aktora to:
 
 \begin{itemize}
-	\item wykopanie elementu
-	\item spadochron - swobodne spadanie
-	\item rozbicie za pomocą kilofa elementu
-	\item umiejętność skakania
-	\item umiejętność zatrzymania się i ponownego swobodnego przechodzenia
-	\item reset - powrót do pozycji startowej
+  \item wykopanie elementu
+  \item spadochron - swobodne spadanie
+  \item rozbicie za pomocą kilofa elementu
+  \item umiejętność skakania
+  \item umiejętność zatrzymania się i ponownego swobodnego przechodzenia
+  \item reset - powrót do pozycji startowej
 \end{itemize}
 
 \begin{lstlisting}[language=CSharp]
@@ -34,19 +34,19 @@ public static Vector3 lemmingPosition = new Vector3 (1205.9F, 103.4F, -4996.9F);
 private static Vector3 jumpSize = new Vector3 (0, 200F, 0F);
 \end{lstlisting}
 \captionof{lstlisting}{
-	Konfiguracja pozycji początkowej i siły skoku
+  Konfiguracja pozycji początkowej i siły skoku
 }
 
 \begin{lstlisting}[language=CSharp]
 public void SendInfo() {
-	Network.SendMessage("hasax_"+this.hasAx);
-	Network.SendMessage("hassh_"+this.hasSh);
-	Network.SendMessage("hasdrabina_"+this.drabina);
-	Network.SendMessage("isMove_"+this.isMove);
+  Network.SendMessage("hasax_"+this.hasAx);
+  Network.SendMessage("hassh_"+this.hasSh);
+  Network.SendMessage("hasdrabina_"+this.drabina);
+  Network.SendMessage("isMove_"+this.isMove);
 }
 \end{lstlisting}
 \captionof{lstlisting}{
-	Przykład wysyłania komunikatów do serwera
+  Przykład wysyłania komunikatów do serwera
 }
 
 \paragraph{}
@@ -56,31 +56,30 @@ Podczas tworzenia nowej instancji klasy Aktora zapisywana ona jest do listy stat
 public static void GetNext() {
 Debug.Log ("get next");
 if (Lemming2.activeEl == null) {
-	Lemming2.activeEl = Lemming2.lista [0];
+  Lemming2.activeEl = Lemming2.lista [0];
 } else {
-	int i = Lemming2.lista.IndexOf(Lemming2.activeEl);
-	if (i < Lemming2.lista.Count - 1) {
-		Lemming2.activeEl = Lemming2.lista [i + 1];
-	} else {
-		Lemming2.activeEl = Lemming2.lista [0];
-	}
+  int i = Lemming2.lista.IndexOf(Lemming2.activeEl);
+  if (i < Lemming2.lista.Count - 1) {
+    Lemming2.activeEl = Lemming2.lista [i + 1];
+  } else {
+    Lemming2.activeEl = Lemming2.lista [0];
+  }
 }
 
 Lemming2.activeEl.SendInfo ();
 }
 \end{lstlisting}
 \captionof{lstlisting}{
-	Wybór aktywnego aktora.
+  Wybór aktywnego aktora.
 }
 
 \paragraph{}
 Każdy z aktorów posiada detekcję kolizji z innymi elementami za pomocą nadpisania wbudowanych metod w środowisko Unity. Są to: OnTriggerEnter, OnTriggerExit, OnCollisionEnter, OnCollisionExit. Kolizja od triggera, różni się tym, iż metody OnCollsion współpracują tylko z elementami, które posiadają zaimplementowaną fizykę (np. spadający element platformy), natomiast trigger to można być dowolny element, nie posiadający ,,ciała'' (np. ściana).
-
-\paragraph{}
+\newline
 W celu uproszczenia detekcji kolizji z innymi elementami wprowadzono czarne prostopadłościany emitujące rzeczywiste ściany. Są one koloru czarnego, dzięki temu projektor emitujący obraz w tych miejscach nie wyśle światła widzialnego. Natomiast dzięki takiemu zabiegowi możliwe jest zamodelowanie w środowisku unity kolizji z rzeczywistymi elementami.
 
 \begin{center}
-\includegraphics[width=1\textwidth]{images/aktor.png}
+\includegraphics[width=0.7\textwidth]{images/aktor.png}
 \captionof{figure}{
 Konfiguracja aktora
 }
@@ -89,13 +88,11 @@ Konfiguracja aktora
 \subsection{Prefabrykaty}
 \paragraph{}
 W Unity możliwe jest używanie prefabrykatów (Prefabs\cite{prefab}). Są obiekty lub grupy obiektów, które służą do wielokrotnego wykorzystywania. W Projekcie założono, że wszystkie reużwalne komponenty (dziedziczone pomiędzy scenami) będą prefabrykatami.
-
 Dodatkowo aktorzy gry (generowane dynamicznie) są również prefabrykatami. Instancje aktora są tworzone podczas działania aplikacji.
-
-\subsubsection{Kamery}
+\newline
+\subsection{Kamery}
 \paragraph{}
 Ważnym elementem gry są wirtualne kamery. To z nich renderowane jest ujęcie, czyli obraz gry. W projekcie zastosowano dwie kamery. Podczas konfiguracji uruchomieniowej należy ustawić by każda z kamer była wyświetlana na oddzielnym źródle obrazu (monitor, projektor). Dzięki temu projekt można uruchomić na dwóch prostopadłych ścianach.
-\paragraph{}
 Jako tło sceny wybrano jednolity kolor czarny, ponieważ ten kolor nie jest prezentowany podczas projekcji. Światło z projektora jest w tym miejscu znikome, wręcz niewidoczne. Stosując taki prosty zabieg można łączyć elementy rzeczywiste (np. rura czy inne elementy stałe znajdujące się w laboratorium) z wirtualną rzeczywistością.
 
 \begin{center}
@@ -108,31 +105,32 @@ Ujęcie wirtualnych kamer
 
 \paragraph{}
 Środowisko Unity domyślnie nie ma włączonej opcji wspierania wielu kamer jednocześnie. Do opisywanego prefakbrykatu należy dodać abstrakcyjny GameObject z poniższym prostym skryptem, który przy uruchomieniu skompilowanej gry sprawdza dostępność sprzętową ekranów.
-
+\newline
+\newline
 \begin{lstlisting}[language=CSharp]
 using UnityEngine;
 using System.Collections;
 
 public class DisplayScript : MonoBehaviour
 {
-	void Start()
-	{
-		Debug.Log("displays connected: " + Display.displays.Length);
-		if (Display.displays.Length > 1)
-			Display.displays[1].Activate();
-		if (Display.displays.Length > 2)
-			Display.displays[2].Activate();
-	}
+  void Start()
+  {
+    Debug.Log("displays connected: " + Display.displays.Length);
+    if (Display.displays.Length > 1)
+      Display.displays[1].Activate();
+    if (Display.displays.Length > 2)
+      Display.displays[2].Activate();
+  }
 }
 \end{lstlisting}
 \captionof{lstlisting}{
-	Prosta aktywacja ekranów
+  Prosta aktywacja ekranów
 }
 
 \paragraph{}
 Podczas testów uruchomieniowych przy dwóch kamerach występował problem z wydajnością karty graficznej. Zwłaszcza gdy do komputera podłączano dwa zewnętrzne ekrany po złączach cyfrowych (np. HDMI, DisplayPort, DVI). Finalnie problem rozwiązano wydajniejszym komputerem, jednakże pośrednim rozwiązaniem było użycie portu VGA, który jest mniej obciążający dla karty graficznej.
 
-\subsubsection{Światło}
+\subsection{Światło}
 \paragraph{}
 Kolejny prefabrykat stworzono by zachować spójność w oświetleniu trójwymiarowej sceny. Służy on do zgrupowania wszystkich źródeł wirtualnego światła. Jest to element bez zawartej logiki biznesowej. Stworzono go w celu zachowania porządku w projekcie.
 
@@ -141,7 +139,7 @@ Kolejny prefabrykat stworzono by zachować spójność w oświetleniu trójwymia
 \paragraph{}
 Jest to prefabrykat dostarczony jako komponent implementacji Socket.io w bibliotece Asset Store. Jest on udostępniony na licencji Open Source.  Musi być on umiejscowiony w każdej scenie, która korzysta z połączenia sieciowego. Umiejscowienie jest dowolne, gdyż jest to prefabrykat abstrakcyjny (nie posiada graficznej reprezentacji w trójwymiarowym modelu). W prefabrykacie wywołano skrpyt \texttt{SocketIOComponent}, który odpowiada za inicjalizacje komunikacji sieciowej.
 
-\subsubsection{Network}
+\subsection{Network}
 \paragraph{}
 Jest to kolejny prefabrykat abstrakcyjny, który służy do uruchomienia klasy \texttt{Network}odpowiadającej za implementacje metod służących do dwustronnej komunikacji.
 Prefabrykat ten jest nierozerwalnie złączony z SocketIO, gdyż bezpośrednio korzysta z metod dostarczonych przez tą bibliotekę.
@@ -152,38 +150,39 @@ private SocketIOComponent socket;
 
 // Use this for initialization
 void Start () {
-	GameObject go = GameObject.Find("SocketIO");
-	socket = go.GetComponent<SocketIOComponent>();
+  GameObject go = GameObject.Find("SocketIO");
+  socket = go.GetComponent<SocketIOComponent>();
 
-	socket.On("open", InitGame);
-	socket.On("button", Button);
+  socket.On("open", InitGame);
+  socket.On("button", Button);
 }
 \end{lstlisting}
 \captionof{lstlisting}{
-	Inicjalizacja skryptu
+  Inicjalizacja skryptu
 }
 
 \paragraph{}
 Na początku wyszukiwany jest obiekt gry o określonej nazwie, a następnie pobierany komponent, czyli obiekt klasy. Warto pamiętać, ze połączenie inicjalizowane jest już przy uruchomieniu, więc nie ma potrzeby ,,ręcznego'' zestawiania warstwy sieciowej.
-
+\newline
 Metoda On w klase \texttt{SocketIOComponent} odpowiada za nasłuchiwanie serwera. Jako pierwszy parametr przyjmuje ciąg znaków określający nazwę metody. Natomiast drugi to referencja do metody, która wywoła się podczas wywołania akcji o nazwie wynikającej z pierwszego parametru.
-
+\newline
 Na potrzeby łatwiejszego zarządzania zdarzeniami i uniknięcia błędów w nazwach przycisków stworzono enum, zawierający nazwy obsługiwanych przycisków. Wszystkie metody odpowiadające za komunikację, a zwłaszcza za zarządzanie stanami oraz nazwami przycisków powinny przyjmować w parametrze opisywany atrybut wyliczalny.
+\newpage
 
 \begin{lstlisting}[language=CSharp]
 using System;
 
 namespace AssemblyCSharp
 {
-	public enum ButtonEnum
-	{
-		BUTTON1, BUTTON2, BUTTON3, BUTTON4, BUTTON5, BUTTON6, BUTTON7, BUTTON8, BUTTON9, BUTTON10
-	}
+  public enum ButtonEnum
+  {
+    BUTTON1, BUTTON2, BUTTON3, BUTTON4, BUTTON5, BUTTON6, BUTTON7, BUTTON8, BUTTON9, BUTTON10
+  }
 }
 
 \end{lstlisting}
 \captionof{lstlisting}{
-	Definicja przycisków.
+  Definicja przycisków.
 }
 
 \paragraph{}
@@ -192,35 +191,35 @@ Metoda zarejestrowana pod nazwą \texttt{open} wywoła się przy udanym zestawie
 \begin{lstlisting}[language=CSharp]
 public void InitGame(SocketIOEvent e)
 {
-	socket.Emit("register_game");
-	EnableButton(ButtonEnum.BUTTON1);
-	SetText(ButtonEnum.BUTTON1, "Nazwa 1");
-	DisableButton(ButtonEnum.BUTTON2);
+  socket.Emit("register_game");
+  EnableButton(ButtonEnum.BUTTON1);
+  SetText(ButtonEnum.BUTTON1, "Nazwa 1");
+  DisableButton(ButtonEnum.BUTTON2);
 }
 \end{lstlisting}
 \captionof{lstlisting}{
-	Inicjalizacja komponentów
+  Inicjalizacja komponentów
 }
 
 \paragraph{}
 Powyższy przykład inicjalizacji pokazuje emitowanie akcji do serwera o nazwie \texttt{register\_game}. Służy on do zarejestrowania gry na serwerze. Od tego czasu wszystkie akcje z kontrolera (np. wciśnięcie przycisku) będzie emitowane do gry.
 Dodatkowo ukazano wstępną konfigurację przycisków: Uaktywnienie przycisku pierwszego, ustawienie określonej nazwy oraz wyłączenie przycisku drugiego.
 
-\subsubsection{Budowanie zapytania}
+\subsection{Budowanie zapytania}
 
 \begin{lstlisting}[language=CSharp]
 public void SetText(ButtonEnum btn, string text) {
-	Dictionary<string, string> dic = new Dictionary<string, string> ();
-	dic.Add ("name", btn.ToString());
-	dic.Add ("text", text);
-	socket.Emit ("set_text", new JSONObject (dic));
+  Dictionary<string, string> dic = new Dictionary<string, string> ();
+  dic.Add ("name", btn.ToString());
+  dic.Add ("text", text);
+  socket.Emit ("set_text", new JSONObject (dic));
 }
 \end{lstlisting}
 \captionof{lstlisting}{
-	Przykładowe zapytanie do gra - kontroler
+  Przykładowe zapytanie do gra - kontroler
 }
 
-\subsubsection{Replikator}
+\subsection{Replikator}
 \paragraph{}
 Replikator to komonent do tworzenia nowych instancji aktora. Ma na celu cykliczne dodawanie kolejnych obiektów aktora w miejsce startowe określone w jego klasie. Dodatkowo uruchamia on nasłuchiwanie akcji przycisków płynących od kontrolera i zamienia je na wywołania metod na obecnie wybranym elemencie - aktywnym aktorze.
 
@@ -234,51 +233,50 @@ Konfiguracja replikatora
 \begin{lstlisting}[language=CSharp]
 ...
 public void Run () {
-	StartCoroutine(Runner());
-
-	NetworkManager.StartListening("button_left", Left);
-	NetworkManager.StartListening("button_right", Right);
-	NetworkManager.StartListening("button_kilof", Kilof);
-	NetworkManager.StartListening("button_lopata", Lopata);
-	NetworkManager.StartListening("button_jump", Jump);
-	NetworkManager.StartListening("button_spadochron", Drabina);
-	NetworkManager.StartListening("button_rotate", Rotate);
-	NetworkManager.StartListening("button_startstop", Startstop);
-	NetworkManager.StartListening("button_reset", Reset);
+  StartCoroutine(Runner());
+  NetworkManager.StartListening("button_left", Left);
+  NetworkManager.StartListening("button_right", Right);
+  NetworkManager.StartListening("button_kilof", Kilof);
+  NetworkManager.StartListening("button_lopata", Lopata);
+  NetworkManager.StartListening("button_jump", Jump);
+  NetworkManager.StartListening("button_spadochron", Drabina);
+  NetworkManager.StartListening("button_rotate", Rotate);
+  NetworkManager.StartListening("button_startstop", Startstop);
+  NetworkManager.StartListening("button_reset", Reset);
 }
 
 IEnumerator Runner() {
-	while (lemmingCount < LemmingSize) {
-		Create ();
-		lemmingCount += 1;
-		yield return new WaitForSeconds (secoundLimit);
-	}
+  while (lemmingCount < LemmingSize) {
+    Create ();
+    lemmingCount += 1;
+    yield return new WaitForSeconds (secoundLimit);
+  }
 }
 ...
 \end{lstlisting}
 \captionof{lstlisting}{
-	Uruchomienie replikatora
+  Uruchomienie replikatora
 }
 
 \begin{lstlisting}[language=CSharp]
 ...
 void Left () {
-	Lemming2.GetPrev ();
+  Lemming2.GetPrev ();
 }
 
 void Right () {
-	Lemming2.GetNext ();
+  Lemming2.GetNext ();
 }
 
 void Kilof () {
-	if (Lemming2.activeEl) {
-		Lemming2.activeEl.ToggleKilof ();
-	}
+  if (Lemming2.activeEl) {
+    Lemming2.activeEl.ToggleKilof ();
+  }
 }
 ...
 \end{lstlisting}
 \captionof{lstlisting}{
-	Implementacja akcji
+  Implementacja akcji
 }
 
 \subsection{Serwer komunikacyjny}
@@ -300,7 +298,7 @@ Jako manager zależności wybrano NPM. Jest on domyślnie dołączony do oprogra
 }
 \end{lstlisting}
 \captionof{lstlisting}{
-	Definicja zależności w projekcie
+  Definicja zależności w projekcie
 }
 
 \paragraph{}
@@ -309,23 +307,23 @@ Głównym założeniem części serwerowej jest propagowanie wiadomości na lini
 \begin{lstlisting}[language=CSharp]
 socket.on('register_controller', function () {
  if(io.sockets.adapter.rooms[CONTROLLER].length < 1) {
-	console.log("register controller");
-	socket.join(CONTROLLER);
+  console.log("register controller");
+  socket.join(CONTROLLER);
  }
 });
 
 socket.on('register_game', function () {
    if(io.sockets.adapter.rooms[GAME]) {
-	console.log("register game");
-	socket.join(GAME);
+  console.log("register game");
+  socket.join(GAME);
    }
 });
 }
 \end{lstlisting}
 \captionof{lstlisting}{
-	Grupowanie połączeń
+  Grupowanie połączeń
 }
-
+\newpage
 \begin{lstlisting}[language=CSharp]
 socket.on('enable_button', function (data) {
   console.log("enable_button", data);
@@ -333,7 +331,7 @@ socket.on('enable_button', function (data) {
 });
 \end{lstlisting}
 \captionof{lstlisting}{
-	Przykład propagacji komunikatu
+  Przykład propagacji komunikatu
 }
 \paragraph{}
 W przyszłości możliwe jest przechowywanie stanu gry na poziomie serwera (każdy kontroler może przesłać unikalny identyfikator urządzenia).

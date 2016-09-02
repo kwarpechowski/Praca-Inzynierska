@@ -1,43 +1,71 @@
-\documentclass[12pt]{article}
+\documentclass[inf, h]{pjatkThesis}
+\usepackage[polish]{babel}
 \input{include/00_config.tex}
+%\usepackage[T1]{fontenc}
+%\usepackage[utf8]{inputenc}
+\usepackage{times}
+\usepackage{graphicx}
+
+%\usepackage{fancyhdr}
+\usepackage{makeidx}
+
+\usepackage{lipsum}
+
+\author{Kamil Warpechowski}
+\album{s10709}
+\title{Platforma do tworzenia gier oraz animacji interaktywnych w środowisku rozszerzonej rzeczywistości}
+\type{Praca inżynierska}
+\supervisor{dr inż. Michał Tomaszewski}
+\location{Warszawa}
+\date{wrzesień 2016}
+
 \begin{document}
 
+\maketitlepage
 
-\thispagestyle{firststyle}
-\begin{center}
-\includegraphics[width=1\textwidth]{images/logo.jpg}
-\textbf{Wydzial Informatyki} \\
-\vspace{3em}
-\textbf{Katedra Sieci Komputerowych} \\
-Sieci Urządzeń Moblinych \\
-\vspace{3em}
-\textbf{Kamil Warpechowski} \\
-Nr albumu 10709
-\end{center}
-
-
-\vspace{3em}
-{\addtolength{\leftskip}{70mm}
-
-\noindent
-Praca inżynierska
-\\Promotor:
-\\dr inż. Michał Tomaszewski
-
-}
-
-\vspace{3em}
-
-\begin{center}
-\textbf {
-Platforma do tworzenia gier oraz animacji interaktywnych w środowisku rozszerzonej rzeczywistości
-}
-\end{center}
-
-\newpage
-\tableofcontents
-\newpage
+%\cleardoublepage
   
+\pagestyle{fancyplain}
+
+%%%  \include the `front matter'
+\include{front}
+
+
+%% create the table of contents
+\cleardoublepage
+\lhead[]{\fancyplain{}{\rightmark}}
+\chead[\fancyplain{}{}]{\fancyplain{}{}}
+\rhead[\fancyplain{}{\leftmark}]{\fancyplain{}{}}
+\rhead[\fancyplain{}{}]{\fancyplain{}{}}
+\lhead[\fancyplain{}{}]{\fancyplain{}{}}
+
+\tableofcontents
+%\listoffigures
+%\listoftables
+
+%\addcontentsline{toc}{chapter}{\listfigurename}
+%\addcontentsline{toc}{chapter}{\listtablename}
+
+%\cleardoublepage
+
+%\newcommand{\publ}{}
+
+\pagestyle{fancyplain}
+\fancyhf{}
+\fancyhead{} 
+\renewcommand{\sectionmark}[1]{\markright{\it \thesection.\ #1}}
+\renewcommand{\chaptermark}[1]{\markboth{\it \thechapter.\ #1}{}}
+
+
+\lfoot[\fancyplain{}{}]                 {\fancyplain{}{}}
+\cfoot[\fancyplain{\thepage}{\thepage}] {\fancyplain{\thepage}{\thepage}}
+\rfoot[\fancyplain{}{}]                 {\fancyplain{}{}}
+
+\renewcommand*\thesection{\thechapter.\arabic{section}}
+
+\pagenumbering{arabic}
+\baselineskip=22pt
+%\cleardoublepage
 \input{include/01_wprowadzenie.tex}
 \input{include/02_cel_pracy.tex}
 \input{include/03_implementacje.tex}
@@ -49,11 +77,12 @@ Platforma do tworzenia gier oraz animacji interaktywnych w środowisku rozszerzo
 \input{include/09_project_tango.tex}
 \input{include/10_zakonczenie.tex}
 
-\newpage
-\thispagestyle{empty}
-  
+
+
+%\renewcommand{\publ}{}
+\cleardoublepage
+\small
 \listoffigures
-\listoftables
 \lstlistoflistings
 
 
@@ -91,4 +120,8 @@ Platforma do tworzenia gier oraz animacji interaktywnych w środowisku rozszerzo
 \bibitem{pa} Building Microservices,  Sam Newman , Wydanie 4, 2016
 \end{thebibliography}
 
+%\cleardoublepage
+%\addcontentsline{toc}{chapter}{Index}
+%\printindex
+    
 \end{document}

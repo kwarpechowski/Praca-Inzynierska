@@ -1,4 +1,3 @@
-\newpage
 \section{Aplikacja mobilna - kontroler}
 
 \begin{center}
@@ -38,7 +37,7 @@ Jednym z główny założeń architektonicznych był rozdzielenie warstwy widoku
 }
 \paragraph{}
 Na potrzeby realizacji powyższego założenia stworzono klasę CustomButton, która jest rozszerzeniem (dziedziczy bezpośrednio) klasy Button znajdującej się w pakiecie  android.widget.
-\paragraph{}
+\newline
 Każdy z przycisków musi posiadać własną nazwę kodową, gdyż serwer podczas komunikacji sieciowej identyfikuje przycisk poprzez unikalny klucz. Domyślnie w środowisku Android każdy komponent wizualny może posiadać swoje Id, jednakże jest one reprezentowane poprzez liczbę typu Integer.
 Dla ułatwienia dalszego rozwoju aplikacji postanowiono stworzyć nowy atrybut. Ich definicje umieszczas ię w formacie XML w pliku attrs.xml.
 
@@ -60,20 +59,19 @@ W konstruktorze poza domyślnymi wywołaniami klasy bazowej \texttt{Button} zapi
 private static HashMap<String, CustomButton> buttons = new HashMap<String, CustomButton>();
 
  private void setUp() {
-        buttons.put(getName(), this);
-        setText(getName());
+  buttons.put(getName(), this);
+  setText(getName());
 
-        setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                ServerCommunication.click_button(getName());
-            }
-        });
-
-    }
+  setOnClickListener(new View.OnClickListener(){
+      @Override
+      public void onClick(View v) {
+          ServerCommunication.click_button(getName());
+      }
+  });
+}
 \end{lstlisting}
 \captionof{lstlisting}{
-    Konfiguracja w klasie CustomButton
+    Konfiguracja w klasie \texttt{CustomButton}
 }
 
 \paragraph{}
@@ -87,8 +85,8 @@ Dodatkowym wymaganiem było umożliwienie szybkiej zmiany wyglądu przycisków w
 \begin{lstlisting}[language=Xml]
 <?xml version="1.0" encoding="utf-8"?>
 <selector 
-xmlns:android="http://schemas.android.com/apk/res/android
-">
+xmlns:android="http://schemas.android.com/
+apk/res/android">
     <item android:state_pressed="true" >
         <shape>
             <gradient
@@ -103,8 +101,9 @@ xmlns:android="http://schemas.android.com/apk/res/android
     </item>
     <item>
         <shape 
-xmlns:android="http://schemas.android.com/apk/res/android"
-        android:shape="rectangle">
+xmlns:android="http://schemas.android.com
+/apk/res/android" android:
+shape="rectangle">
             <gradient android:startColor="#FFFFFF"
                 android:endColor="#999"
                 android:angle="270" />
@@ -146,50 +145,50 @@ public  class ServerCommunication {
     private static AppCompatActivity activity = null;
 
     public static void start(AppCompatActivity mainActivity) {
-        activity = mainActivity;
-        ServerCommunication.start();
+      activity = mainActivity;
+      ServerCommunication.start();
     }
 
     private static void start() {
-        if(mSocket == null) {
-            Log.i("socket", "createServer");
-            try {
-                mSocket = IO.socket("http://192.168.0.12:5555");
-                mSocket.connect();
-                ServerCommunication.listenDisableButton();
-                ServerCommunication.listenEnableButton();
-                ServerCommunication.listenSetText();
-                mSocket.emit("register_controller");
-            } catch (URISyntaxException e) {
-            }
+      if(mSocket == null) {
+        Log.i("socket", "createServer");
+        try {
+          mSocket = IO.socket("http://192.168.0.12:5555");
+          mSocket.connect();
+          ServerCommunication.listenDisableButton();
+          ServerCommunication.listenEnableButton();
+          ServerCommunication.listenSetText();
+          mSocket.emit("register_controller");
+        } catch (URISyntaxException e) {
         }
+      }
     }
 
 
     public static void click_button(String buttonName) {
-        ServerCommunication.start();
-        mSocket.emit("click", buttonName);
+      ServerCommunication.start();
+      mSocket.emit("click", buttonName);
     }
 
     public static void listenDisableButton() {
-        ServerCommunication.start();
-        mSocket.on("disable_button", new Emitter.Listener() {
-            @Override
-            public void call(Object... args) {
-                Log.i("socket", "disable_button");
-                try {
-                    JSONObject mainObject = new JSONObject(args[0].toString());
-                    final String name = mainObject.getString("name");
-                    activity.runOnUiThread(new Runnable() {
-                       public void run() {
-                           CustomButton.disableButton(name);
-                       }
-                   });
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+      ServerCommunication.start();
+      mSocket.on("disable_button", new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+          Log.i("socket", "disable_button");
+          try {
+              JSONObject mainObject = new JSONObject(args[0].toString());
+              final String name = mainObject.getString("name");
+              activity.runOnUiThread(new Runnable() {
+                 public void run() {
+                     CustomButton.disableButton(name);
+                 }
+             });
+          } catch (JSONException e) {
+              e.printStackTrace();
+          }
+        }
+      });
     }
 ...
 \end{lstlisting}
